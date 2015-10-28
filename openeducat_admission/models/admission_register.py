@@ -27,58 +27,55 @@ class OpAdmissionRegister(models.Model):
     _inherit = 'mail.thread'
     _description = 'Admission Register'
 
-    name = fields.Char(
-        'Name', required=True, readonly=True,
+    name = fields.Char(required=True, readonly=True, states={'draft': [('readonly', False)]})
+    start_date = fields.Date('Start Date', required=True, readonly=True,
         states={'draft': [('readonly', False)]})
-    start_date = fields.Date(
-        'Start Date', required=True, readonly=True,
+    end_date = fields.Date('End Date', required=True, readonly=True,
         states={'draft': [('readonly', False)]})
-    end_date = fields.Date(
-        'End Date', required=True, readonly=True,
-        states={'draft': [('readonly', False)]})
-    course_id = fields.Many2one(
-        'op.course', 'Course', required=True, readonly=True,
+    course_id = fields.Many2one('op.course', 'Course', required=True, readonly=True,
         states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    min_count = fields.Integer(
-        'Minimum No. of Admission', readonly=True,
+    min_count = fields.Integer('Minimum Admission', readonly=True,
         states={'draft': [('readonly', False)]})
-    max_count = fields.Integer(
-        'Maximum No. of Admission', readonly=True,
+    max_count = fields.Integer('Maximum Admission', readonly=True,
         states={'draft': [('readonly', False)]})
-    product_id = fields.Many2one(
-        'product.product', 'Product', required=True,
+    product_id = fields.Many2one('product.product', 'Product', required=True,
         domain=[('type', '=', 'service')], readonly=True,
         states={'draft': [('readonly', False)]}, track_visibility='onchange')
-    admission_ids = fields.One2many(
-        'op.admission', 'register_id', 'Admissions')
-    state = fields.Selection(
-        [('draft', 'Draft'), ('confirm', 'Confirmed'),
-         ('cancel', 'Cancelled'), ('application', 'Application Gathering'),
-         ('admission', 'Admission Process'), ('done', 'Done')],
-        'Status',  default='draft', track_visibility='onchange')
+    admission_ids = fields.One2many('op.admission', 'register_id', 'Admissions')
+    state = fields.Selection([
+                ('draft', 'Draft'), ('confirm', 'Confirmed'),
+                ('cancel', 'Cancelled'), ('application', 'Application Gathering'),
+                ('admission', 'Admission Process'), ('done', 'Done')
+            ], string='Status', default='draft', track_visibility='onchange')
 
-    @api.one
+    @api.multi
     def confirm_register(self):
+        self.ensure_one()
         self.state = 'confirm'
 
-    @api.one
+    @api.multi
     def set_to_draft(self):
+        self.ensure_one()
         self.state = 'draft'
 
-    @api.one
+    @api.multi
     def cancel_register(self):
+        self.ensure_one()
         self.state = 'cancel'
 
-    @api.one
+    @api.multi
     def start_application(self):
+        self.ensure_one()
         self.state = 'application'
 
-    @api.one
+    @api.multi
     def start_admission(self):
+        self.ensure_one()
         self.state = 'admission'
 
-    @api.one
+    @api.multi
     def close_register(self):
+        self.ensure_one()
         self.state = 'done'
 
 
