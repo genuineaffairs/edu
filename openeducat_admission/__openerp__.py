@@ -39,7 +39,7 @@
         'report/report_menu.xml',
         'report/report_admission_analysis.xml',
         'wizard/admission_analysis_wizard_view.xml',
-        'admission_menu.xml',
+        'views/admission_menu.xml',
         'security/ir.model.access.csv',
     ],
     'demo': [

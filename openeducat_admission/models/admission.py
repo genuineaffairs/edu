@@ -30,56 +30,51 @@ class OpAdmission(models.Model):
     _order = "application_number desc"
     _description = "Admission"
 
-    name = fields.Char(
-        'First Name', size=128, required=True,
+
+    @api.multi
+    def _get_full_name(self):
+        for rec in self:
+            rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
+
+    full_name = fields.Char('Name', compute=_get_full_name)
+    name = fields.Char('First Name', required=True,
         states={'done': [('readonly', True)]})
-    middle_name = fields.Char(
-        'Middle Name', size=128,
+    middle_name = fields.Char('Middle Name',
         states={'done': [('readonly', True)]})
-    last_name = fields.Char(
-        'Last Name', size=128, required=True,
+    last_name = fields.Char('Last Name', required=True,
         states={'done': [('readonly', True)]})
     title = fields.Many2one(
         'res.partner.title', 'Title', states={'done': [('readonly', True)]})
-    application_number = fields.Char(
-        'Application Number', size=16, required=True, copy=False,
+    application_number = fields.Char('Application Number', required=True, copy=False,
         states={'done': [('readonly', True)]},
-        default=lambda self:
-        self.env['ir.sequence'].next_by_code('op.admission'))
-    admission_date = fields.Date(
-        'Admission Date', copy=False,
+        default=lambda self: self.env['ir.sequence'].next_by_code('op.admission'))
+    admission_date = fields.Date('Admission Date', copy=False,
         states={'done': [('readonly', True)]})
-    application_date = fields.Datetime(
-        'Application Date', required=True, copy=False,
-        states={'done': [('readonly', True)]},
-        default=lambda self: fields.Datetime.now())
-    birth_date = fields.Date(
-        'Birth Date', required=True, states={'done': [('readonly', True)]})
-    course_id = fields.Many2one(
-        'op.course', 'Course', required=True,
+    application_date = fields.Datetime('Application Date', required=True, copy=False,
+        states={'done': [('readonly', True)]}, default=fields.Datetime.now())
+    birth_date = fields.Date('Birth Date', required=True, states={'done': [('readonly', True)]})
+    course_id = fields.Many2one('op.course', 'Course', required=True,
         states={'done': [('readonly', True)]})
-    batch_id = fields.Many2one(
-        'op.batch', 'Batch', required=False,
-        states={'done': [('readonly', True)],
-                'fees_paid': [('required', True)]})
-    street = fields.Char(
-        'Street', size=256, states={'done': [('readonly', True)]})
-    street2 = fields.Char(
-        'Street2', size=256, states={'done': [('readonly', True)]})
-    phone = fields.Char(
-        'Phone', size=16, states={'done': [('readonly', True)]})
-    mobile = fields.Char(
-        'Mobile', size=16, states={'done': [('readonly', True)]})
-    email = fields.Char(
-        'Email', size=256, states={'done': [('readonly', True)]})
-    city = fields.Char('City', size=64, states={'done': [('readonly', True)]})
-    zip = fields.Char('Zip', size=8, states={'done': [('readonly', True)]})
-    state_id = fields.Many2one(
-        'res.country.state', 'States', states={'done': [('readonly', True)]})
-    country_id = fields.Many2one(
-        'res.country', 'Country', states={'done': [('readonly', True)]})
-    fees = fields.Float('Fees', states={'done': [('readonly', True)]})
+    batch_id = fields.Many2one('op.batch', 'Batch', required=False,
+        states={'done': [('readonly', True)], 'fees_paid': [('required', True)]})
+
+    # Address fields
+    street = fields.Char(states={'done': [('readonly', True)]})
+    street2 = fields.Char(states={'done': [('readonly', True)]})
+    phone = fields.Char(states={'done': [('readonly', True)]})
+    mobile = fields.Char(states={'done': [('readonly', True)]})
+    email = fields.Char(states={'done': [('readonly', True)]})
+    city = fields.Char(states={'done': [('readonly', True)]})
+    zip = fields.Char(states={'done': [('readonly', True)]})
+    state_id = fields.Many2one('res.country.state', 'States',
+        states={'done': [('readonly', True)]})
+    country_id = fields.Many2one('res.country', 'Country',
+        states={'done': [('readonly', True)]})
+
     photo = fields.Binary('Photo', states={'done': [('readonly', True)]})
+    gender = fields.Selection([
+        ('m', 'Male'), ('f', 'Female'), ('o', 'Other')], 'Gender',
+        required=True, states={'done': [('readonly', True)]})
     state = fields.Selection(
         [('draft', 'Draft'), ('confirm', 'Confirmed'),
          ('payment_process', 'Payment Process'), ('fees_paid', 'Fees Paid'),
@@ -87,6 +82,7 @@ class OpAdmission(models.Model):
          ('cancel', 'Cancelled'), ('done', 'Done')],
         'State', readonly=True, select=True,
         default='draft', track_visibility='onchange')
+    fees = fields.Float('Fees', states={'done': [('readonly', True)]})
     due_date = fields.Date('Due Date', states={'done': [('readonly', True)]})
     prev_institute_id = fields.Many2one(
         'res.partner', 'Previous Institute',
@@ -95,27 +91,22 @@ class OpAdmission(models.Model):
         'op.course', 'Previous Course', states={'done': [('readonly', True)]})
     prev_result = fields.Char(
         'Previous Result', size=256, states={'done': [('readonly', True)]})
-    family_business = fields.Char(
-        'Family Business', size=256, states={'done': [('readonly', True)]})
-    family_income = fields.Float(
-        'Family Income', states={'done': [('readonly', True)]})
-    gender = fields.Selection(
-        [('m', 'Male'), ('f', 'Female'), ('o', 'Other')], 'Gender',
-        required=True, states={'done': [('readonly', True)]})
-    student_id = fields.Many2one(
-        'op.student', 'Student', states={'done': [('readonly', True)]})
+    family_business = fields.Char('Family Business')
+    family_income = fields.Float('Family Income')
+    student_id = fields.Many2one('op.student', 'Student', states={'done': [('readonly', True)]})
     nbr = fields.Integer('No of Admission', readonly=True)
-    register_id = fields.Many2one(
-        'op.admission.register', 'Admission Register', required=True,
-        states={'done': [('readonly', True)]})
+    register_id = fields.Many2one('op.admission.register', 'Admission Register',
+        required=True, states={'done': [('readonly', True)]})
     partner_id = fields.Many2one('res.partner', 'Partner')
+
 
     @api.onchange('register_id')
     def onchange_register(self):
         self.course_id = self.register_id.course_id
         self.fees = self.register_id.product_id.lst_price
+        self.admission_date = self.register_id.start_date
 
-    @api.one
+    # @api.one
     @api.constrains('register_id', 'application_date')
     def _check_admission_register(self):
         start_date = fields.Date.from_string(self.register_id.start_date)
@@ -126,71 +117,70 @@ class OpAdmission(models.Model):
                 "Application Date should be between Start Date & \
                 End Date of Admission Register.")
 
-    @api.one
+    @api.multi
     def confirm_in_progress(self):
         self.state = 'confirm'
         if self.partner_id:
             self.state = 'payment_process'
 
-    @api.multi
+    # @api.multi
     def get_student_vals(self):
         return {
-            'title': self.title and self.title.id or False,
+            'title': self.title.id,
             'name': self.name,
             'middle_name': self.middle_name,
             'last_name': self.last_name,
             'birth_date': self.birth_date,
             'gender': self.gender,
-            'course_id': self.course_id and self.course_id.id or False,
-            'batch_id': self.batch_id and self.batch_id.id or False,
-            'photo': self.photo or False,
-            'street': self.street or False,
-            'street2': self.street2 or False,
-            'phone': self.phone or False,
-            'mobile': self.mobile or False,
-            'zip': self.zip or False,
-            'city': self.city or False,
-            'country_id': self.country_id and self.country_id.id or False,
-            'state_id': self.state_id and self.state_id.id or False,
+            'course_id': self.course_id.id,
+            'batch_id': self.batch_id.id,
+            'photo': self.photo,
+            'street': self.street,
+            'street2': self.street2,
+            'phone': self.phone,
+            'mobile': self.mobile,
+            'zip': self.zip,
+            'city': self.city,
+            'country_id': self.country_id.id,
+            'state_id': self.state_id.id,
         }
 
-    @api.one
+    @api.multi
     def enroll_student(self):
-        total_admission = self.env['op.admission'].search_count(
-            [('register_id', '=', self.register_id.id),
-             ('state', '=', 'done')])
-        if self.register_id.max_count:
-            if not total_admission < self.register_id.max_count:
-                msg = 'Max Admission In Admission Register :- (%s)' % (
-                    self.register_id.max_count)
-                raise ValidationError(msg)
+        total_admission = self.env['op.admission'].search_count([
+            ('register_id', '=', self.register_id.id),
+            ('state', '=', 'done')])
+        if self.register_id.max_count and total_admission >= self.register_id.max_count:
+            msg = 'Admission of %s course is now full !' % (self.register_id.course_id)
+            raise ValidationError(msg)
 
         vals = self.get_student_vals()
         vals.update({'partner_id': self.partner_id.id})
+        student = self.env['op.student'].create(vals)
         self.write({
             'nbr': 1,
             'state': 'done',
-            'admission_date': fields.Date.today(),
-            'student_id': self.env['op.student'].create(vals).id,
+            # 'admission_date': fields.Date.today(),
+            'student_id': student.id,
         })
 
-    @api.one
+    @api.multi
     def confirm_rejected(self):
         self.state = 'reject'
 
-    @api.one
+    @api.multi
     def confirm_pending(self):
         self.state = 'pending'
 
-    @api.one
+    @api.multi
     def confirm_to_draft(self):
         self.state = 'draft'
 
-    @api.one
+    @api.multi
     def confirm_cancel(self):
         self.state = 'cancel'
 
-    @api.one
+    @api.multi
     def payment_process(self):
         self.state = 'fees_paid'
 
