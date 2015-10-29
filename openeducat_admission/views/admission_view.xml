@@ -95,7 +95,7 @@
                                     </group>
                                 </group>
                             </page>
-                            <page name="educational_detail" string="Previous Educational">
+                            <page name="educational_detail" string="Previous Education">
                                 <group col="4" colspan="4">
                                     <field name="prev_institute_id"/>
                                     <field name="prev_course_id"/>

@@ -14,7 +14,6 @@
                     <field name="end_date"/>
                     <field name="min_count"/>
                     <field name="max_count"/>
-                    <field name="product_id"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -47,7 +46,7 @@
                                 <field name="name"/>
                                 <field name="start_date"/>
                                 <field name="end_date"/>
-                                <field name="product_id" context="{'default_type': 'service'}"/>
+                                <field name="product_id" string="Admission Fee" context="{'default_type': 'service'}"/>
                             </group>
                             <group>
                                 <field name="course_id"/>
@@ -57,7 +56,7 @@
                         </group>
                         <notebook>
                             <page string="Applications">
-                                <field name="admission_ids"/>
+                                <field name="admission_ids" readonly="True"/>
                             </page>
                         </notebook>
                     </sheet>
