@@ -25,21 +25,30 @@ from openerp import models, fields, api
 class OpStudent(models.Model):
     _name = 'op.student'
     _inherits = {'res.partner': 'partner_id'}
+    _rec_name = 'full_name'
+
+
+    @api.multi
+    # @api.onchange('name', 'middle_name', 'last_name')
+    def _get_full_name(self):
+        for rec in self:
+            rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
 
     @api.one
     @api.depends('roll_number_line', 'batch_id', 'course_id')
     def _get_curr_roll_number(self):
         # TO_DO:: Improve the logic by adding sequence field in course.
-        if self.roll_number_line:
-            for roll_no in self.roll_number_line:
-                if roll_no.course_id == self.course_id and \
-                        roll_no.batch_id == self.batch_id:
-                    self.roll_number = roll_no.roll_number
-        else:
-            self.roll_number = 0
+        # if self.roll_number_line:
+        for roll_no in self.roll_number_line:
+            if roll_no.course_id == self.course_id and \
+                    roll_no.batch_id == self.batch_id:
+                self.roll_number = roll_no.roll_number
+        # else:
+            # self.roll_number = 0
 
-    middle_name = fields.Char('Middle Name', size=128)
-    last_name = fields.Char('Last Name', size=128, required=True)
+    full_name = fields.Char('Name', compute=_get_full_name)
+    middle_name = fields.Char('Middle Name')
+    last_name = fields.Char('Last Name', required=True)
     birth_date = fields.Date('Birth Date', required=True)
     blood_group = fields.Selection(
         [('A+', 'A+ve'), ('B+', 'B+ve'), ('O+', 'O+ve'), ('AB+', 'AB+ve'),
@@ -51,8 +60,8 @@ class OpStudent(models.Model):
     nationality = fields.Many2one('res.country', 'Nationality')
     emergency_contact = fields.Many2one(
         'res.partner', 'Emergency Contact')
-    visa_info = fields.Char('Visa Info', size=64)
-    id_number = fields.Char('ID Card Number', size=64)
+    visa_info = fields.Char('Visa Info')
+    id_number = fields.Char('ID Card Number')
     photo = fields.Binary('Photo')
     course_id = fields.Many2one('op.course', 'Course', required=True)
     batch_id = fields.Many2one('op.batch', 'Batch', required=True)
@@ -61,9 +70,8 @@ class OpStudent(models.Model):
     partner_id = fields.Many2one(
         'res.partner', 'Partner', required=True, ondelete="cascade")
     roll_number = fields.Char(
-        'Current Roll Number', compute='_get_curr_roll_number',
-        size=8, store=True)
-    gr_no = fields.Char("GR Number", size=20)
+        'Current Roll Number', compute='_get_curr_roll_number', store=True)
+    gr_no = fields.Char("GR Number")
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

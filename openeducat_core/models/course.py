@@ -25,10 +25,10 @@ from openerp import models, fields
 class OpCourse(models.Model):
     _name = 'op.course'
 
-    name = fields.Char('Name', size=32, required=True)
-    code = fields.Char('Code', size=8, required=True)
+    name = fields.Char('Name', required=True)
+    code = fields.Char('Code', required=True)
     parent_id = fields.Many2one('op.course', 'Parent Course')
-    section = fields.Char('Section', size=32, required=True)
+    section = fields.Char('Section', required=True)
     evaluation_type = fields.Selection(
         [('normal', 'Normal'), ('GPA', 'GPA'), ('CWA', 'CWA'), ('CCE', 'CCE')],
         'Evaluation Type', required=True)

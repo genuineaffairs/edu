@@ -36,7 +36,7 @@ class OpAttendanceLine(models.Model):
     batch_id = fields.Many2one(
         'op.batch', 'Batch', related='student_id.batch_id', store=True,
         readonly=True)
-    remark = fields.Char('Remark', size=256)
+    remark = fields.Char('Remark')
     attendance_date = fields.Date(
         'Date', related='attendance_id.attendance_date', store=True,
         readonly=True)

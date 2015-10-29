@@ -18,13 +18,13 @@
                                 <div class="oe_kanban_details">
                                     <h4>
                                         <a type="open">
-                                            <field name="name" />
-                                            <t t-if="record.middle_name.raw_value">
+                                            <field name="full_name" />
+                                            <!-- <t t-if="record.middle_name.raw_value">
                                                 <field name="middle_name" />
                                             </t>
                                             <t t-if="record.last_name.raw_value">
                                                 <field name="last_name" />
-                                            </t>
+                                            </t> -->
                                         </a>
                                     </h4>
                                     <ul>
@@ -67,10 +67,10 @@
             <field name="priority" eval="8" />
             <field name="arch" type="xml">
                 <tree string="Faculty">
-                    <field name="title" />
-                    <field name="name" />
-                    <field name="middle_name" />
-                    <field name="last_name" />
+                    <!-- <field name="title" /> -->
+                    <field name="full_name" />
+                    <!-- <field name="middle_name" /> -->
+                    <!-- <field name="last_name" /> -->
                     <field name="blood_group" />
                     <field name="emergency_contact" />
                 </tree>
@@ -88,9 +88,9 @@
                     <sheet>
                         <field name="photo" widget="image" class="oe_left oe_avatar" />
                         <div class="oe_title">
-                            <h1>
+                            <!-- <h1>
                                 <field name="title" placeholder="Title" style="width: 30%%" />
-                            </h1>
+                            </h1> -->
                             <h1><table>
                                 <tr>
                                 <td><field name="name" required="1" placeholder="First Name" style="padding-right:10px" /></td>

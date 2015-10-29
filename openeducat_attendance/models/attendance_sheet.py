@@ -24,20 +24,20 @@ from openerp import models, fields, api
 
 class OpAttendanceSheet(models.Model):
     _name = 'op.attendance.sheet'
+    _rec_name = 'attendance_date'
 
-    @api.one
+    @api.multi
     @api.depends('attendance_line.present')
-    def _total_present(self):
-        self.total_present = len(self.attendance_line.filtered(
-            lambda self: self.present))
+    def _total_present_absent(self):
+        for record in self:
+            record.total_present = len(record.attendance_line.filtered(
+                lambda rec: rec.present))
+            record.total_absent = len(record.attendance_line.filtered(
+                lambda rec: rec.present is False))
+            record.total = record.total_present + record.total_absent
 
-    @api.one
-    @api.depends('attendance_line.present')
-    def _total_absent(self):
-        self.total_absent = len(self.attendance_line.filtered(
-            lambda self: self.present is False))
 
-    name = fields.Char('Name', size=8)
+    # name = fields.Char('Name')
     register_id = fields.Many2one(
         'op.attendance.register', 'Register', required=True)
     attendance_date = fields.Date(
@@ -45,9 +45,10 @@ class OpAttendanceSheet(models.Model):
     attendance_line = fields.One2many(
         'op.attendance.line', 'attendance_id', 'Attendance Line')
     total_present = fields.Integer(
-        'Total Present', compute='_total_present')
+        'Total Present', compute='_total_present_absent')
     total_absent = fields.Integer(
-        'Total Absent', compute='_total_absent')
+        'Total Absent', compute='_total_present_absent')
+    total = fields.Integer(compute='_total_present_absent')
     faculty_id = fields.Many2one('op.faculty', 'Faculty')
 
 

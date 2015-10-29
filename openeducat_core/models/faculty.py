@@ -25,9 +25,19 @@ from openerp import models, fields, api
 class OpFaculty(models.Model):
     _name = 'op.faculty'
     _inherits = {'res.partner': 'partner_id'}
+    _rec_name = 'full_name'
+
+
+    @api.one
+    @api.onchange('name', 'middle_name', 'last_name')
+    def _get_full_name(self):
+        for rec in self:
+            rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
+
 
     partner_id = fields.Many2one(
         'res.partner', 'Partner', required=True, ondelete="cascade")
+    full_name = fields.Char('Name')
     middle_name = fields.Char('Middle Name', size=128)
     last_name = fields.Char('Last Name', size=128, required=True)
     birth_date = fields.Date('Birth Date', required=True)
@@ -40,8 +50,8 @@ class OpFaculty(models.Model):
     nationality = fields.Many2one('res.country', 'Nationality')
     emergency_contact = fields.Many2one(
         'res.partner', 'Emergency Contact')
-    visa_info = fields.Char('Visa Info', size=64)
-    id_number = fields.Char('ID Card Number', size=64)
+    visa_info = fields.Char('Visa Info')
+    id_number = fields.Char('ID Card Number')
     photo = fields.Binary('Photo')
     login = fields.Char(
         'Login', related='partner_id.user_id.login', readonly=1)
@@ -53,8 +63,9 @@ class OpFaculty(models.Model):
 
     @api.one
     def create_employee(self):
+        name = '%s %s %s' % (self.name, self.middle_name or '', self.last_name)
         vals = {
-            'name': self.name + ' ' + self.middle_name + ' ' + self.last_name,
+            'name': name,
             'country_id': self.nationality.id,
             'gender': self.gender,
         }

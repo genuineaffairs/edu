@@ -8,10 +8,10 @@
             <field name="arch" type="xml">
                 <tree string="Attendance Sheet">
                     <field name="register_id" />
-                    <field name="name" />
                     <field name="attendance_date" />
                     <field name="total_present" />
                     <field name="total_absent" />
+                    <field name="total"/>
                 </tree>
             </field>
         </record>
@@ -22,22 +22,30 @@
             <field name="arch" type="xml">
                 <form string="Attendance Sheet">
                     <sheet>
-                        <group col="4" colspan="4">
-                            <field name="register_id" />
-                            <field name="name" />
-                            <field name="attendance_date" />
+                        <group>
+                            <group>
+                                <field name="register_id" />
+                                <field name="attendance_date" />
+                            </group>
+                            <group>
+                                <field name="total" string="Total Student"/>
+                                <field name="total_present" />
+                                <field name="total_absent" />
+                            </group>
                         </group>
-                        <group col="4" string="Students">
-                            <field name="attendance_line" colspan="4" nolabel="1">
-                                <tree string="Attendance Line" editable="top">
-                                    <field name="student_id" />
-                                    <field name="present" />
-                                    <field name="remark" />
-                                </tree>
-                            </field>
-                            <field name="total_present" />
-                            <field name="total_absent" />
-                        </group>
+                        <notebook>
+                            <page string="Students">
+                                <!-- <group col="4" string="Students"> -->
+                                    <field name="attendance_line" colspan="4" nolabel="1">
+                                        <tree string="Attendance Line" editable="top">
+                                            <field name="student_id" />
+                                            <field name="present" />
+                                            <field name="remark" />
+                                        </tree>
+                                    </field>
+                                <!-- </group> -->
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
