@@ -50,10 +50,9 @@ class AdmissionAnalysisReport(report_sxw.rml_parse):
                                 ('admission_date', '>=', data['start_date']),
                                 ('admission_date', '<=', data['end_date'])],
             order='admission_date desc')
-        res = {}
-        self.total_student = 0
-        for student in student_pool.browse(self.cr, self.uid, student_search):
-            self.total_student += 1
+        students = student_pool.browse(self.cr, self.uid, student_search)
+        self.total_student = len(students)
+        for student in students:
             res = {
                 'name': student.name,
                 'middle_name': student.middle_name,

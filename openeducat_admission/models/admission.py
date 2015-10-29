@@ -106,7 +106,6 @@ class OpAdmission(models.Model):
         self.fees = self.register_id.product_id.lst_price
         self.admission_date = self.register_id.start_date
 
-    # @api.one
     @api.constrains('register_id', 'application_date')
     def _check_admission_register(self):
         start_date = fields.Date.from_string(self.register_id.start_date)
