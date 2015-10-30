@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <menuitem id="menu_op_school_config_exam" name="Exam Management" parent="openeducat_core.menu_op_school_config" sequence="70"/>
+        <menuitem id="menu_op_school_config_exam" name="Exam Management" parent="openeducat_core.menu_op_school_config_root" sequence="70"/>
 
         <menuitem id="menu_op_exam_type_sub" name="Exam Types"
             parent="menu_op_school_config_exam" sequence="10"
