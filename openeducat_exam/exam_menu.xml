@@ -80,7 +80,7 @@
 
         <!-- wizard menu -->
         <menuitem id="menu_student_hall_ticket" name="Student Hall Tickets"
-            parent="openeducat_core.menu_op_general_main" sequence="30"
+            parent="openeducat_core.menu_op_report_main" sequence="30"
             action="student_hall_ticket_act" groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin" />
     </data>
 </openerp>
