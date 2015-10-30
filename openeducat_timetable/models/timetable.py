@@ -22,10 +22,19 @@
 from openerp import models, fields
 
 
+class OpTimetableDay(models.Model):
+    _name = 'op.timetable.day'
+    _order = 'sequence'
+
+    name = fields.Char()
+    sequence = fields.Integer()
+
+
 class OpTimetable(models.Model):
     _name = 'op.timetable'
     _description = 'Time Table'
     _rec_name = 'faculty_id'
+    _order = 'type'
 
     period_id = fields.Many2one('op.period', 'Period', required=True)
     start_datetime = fields.Datetime('Start Time', required=True)
@@ -35,10 +44,11 @@ class OpTimetable(models.Model):
     batch_id = fields.Many2one('op.batch', 'Batch', required=True)
     subject_id = fields.Many2one('op.subject', 'Subject', required=True)
     color = fields.Integer('Color Index')
-    type = fields.Selection(
-        [('Monday', 'Monday'), ('Tuesday', 'Tuesday'),
-         ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'),
-         ('Friday', 'Friday'), ('Saturday', 'Saturday')], 'Days')
+    # type = fields.Selection(
+    #     [('Monday', 'Monday'), ('Tuesday', 'Tuesday'),
+    #      ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'),
+    #      ('Friday', 'Friday'), ('Saturday', 'Saturday')], 'Days')
+    type = fields.Many2one('op.timetable.day', 'Days')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

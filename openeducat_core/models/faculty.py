@@ -29,7 +29,6 @@ class OpFaculty(models.Model):
 
 
     @api.one
-    @api.onchange('name', 'middle_name', 'last_name')
     def _get_full_name(self):
         for rec in self:
             rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
@@ -37,9 +36,9 @@ class OpFaculty(models.Model):
 
     partner_id = fields.Many2one(
         'res.partner', 'Partner', required=True, ondelete="cascade")
-    full_name = fields.Char('Name')
-    middle_name = fields.Char('Middle Name', size=128)
-    last_name = fields.Char('Last Name', size=128, required=True)
+    full_name = fields.Char('Name', compute=_get_full_name)
+    middle_name = fields.Char('Middle Name')
+    last_name = fields.Char('Last Name', required=True)
     birth_date = fields.Date('Birth Date', required=True)
     blood_group = fields.Selection(
         [('A+', 'A+ve'), ('B+', 'B+ve'), ('O+', 'O+ve'), ('AB+', 'AB+ve'),

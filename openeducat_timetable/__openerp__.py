@@ -46,6 +46,7 @@
         'dashboard/timetable_faculty_dashboard.xml',
         'security/ir.model.access.csv',
         'timetable_menu.xml',
+        'data/op_timetable_day.xml',
     ],
     'demo': [
         'demo/op.period.csv',

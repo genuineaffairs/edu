@@ -38,13 +38,13 @@ class OpStudent(models.Model):
     @api.depends('roll_number_line', 'batch_id', 'course_id')
     def _get_curr_roll_number(self):
         # TO_DO:: Improve the logic by adding sequence field in course.
-        # if self.roll_number_line:
-        for roll_no in self.roll_number_line:
-            if roll_no.course_id == self.course_id and \
-                    roll_no.batch_id == self.batch_id:
-                self.roll_number = roll_no.roll_number
-        # else:
-            # self.roll_number = 0
+        if self.roll_number_line:
+            for roll_no in self.roll_number_line:
+                if roll_no.course_id == self.course_id and \
+                        roll_no.batch_id == self.batch_id:
+                    self.roll_number = roll_no.roll_number
+        else:
+            self.roll_number = 0
 
     full_name = fields.Char('Name', compute=_get_full_name)
     middle_name = fields.Char('Middle Name')

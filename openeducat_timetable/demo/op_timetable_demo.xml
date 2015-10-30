@@ -9,7 +9,7 @@
             <field name="subject_id" ref="openeducat_core.op_subject_6"/>
             <field name="start_datetime" eval="time.strftime('%Y-%m-05 04:30:00')"/>
             <field name="end_datetime" eval="time.strftime('%Y-%m-05 05:30:00')"/>
-            <field name="type">Monday</field>
+            <field name="type" ref="op_timetable_day_1"/>
         </record>
         <record id="op_timetable_2" model="op.timetable">
             <field name="period_id" ref="op_period_2"/>
@@ -19,7 +19,7 @@
             <field name="subject_id" ref="openeducat_core.op_subject_7"/>
             <field name="start_datetime" eval="time.strftime('%Y-%m-05 05:30:00')"/>
             <field name="end_datetime" eval="time.strftime('%Y-%m-05 06:30:00')"/>
-            <field name="type">Monday</field>
+            <field name="type" ref="op_timetable_day_1"/>
         </record>
         <record id="op_timetable_3" model="op.timetable">
             <field name="period_id" ref="op_period_2"/>
@@ -29,7 +29,7 @@
             <field name="subject_id" ref="openeducat_core.op_subject_8"/>
             <field name="start_datetime" eval="time.strftime('%Y-%m-06 05:30:00')"/>
             <field name="end_datetime" eval="time.strftime('%Y-%m-06 06:30:00')"/>
-            <field name="type">Tuesday</field>
+            <field name="type" ref="op_timetable_day_2"/>
         </record>
         <record id="op_timetable_4" model="op.timetable">
             <field name="period_id" ref="op_period_3"/>
@@ -39,7 +39,7 @@
             <field name="subject_id" ref="openeducat_core.op_subject_9"/>
             <field name="start_datetime" eval="time.strftime('%Y-%m-06 06:30:00')"/>
             <field name="end_datetime" eval="time.strftime('%Y-%m-06 07:30:00')"/>
-            <field name="type">Tuesday</field>
+            <field name="type" ref="op_timetable_day_2"/>
         </record>
     </data>
 </openerp>

@@ -32,7 +32,7 @@
                             <field name="subject_id" />
                             <field name="start_datetime" />
                             <field name="end_datetime" />
-                            <field name="type"/>
+                            <field name="type" widget="selection"/>
                         </group>
                     </sheet>
                 </form>
@@ -85,7 +85,7 @@
                 </calendar>
             </field>
         </record>
-        
+
         <record model="ir.ui.view" id="view_timetable_kanban">
             <field name="name">timetable.kanban</field>
             <field name="model">op.timetable</field>
@@ -139,7 +139,7 @@
                 </kanban>
             </field>
          </record>
-        
+
         <record model="ir.actions.act_window" id="act_open_op_timetable_view">
             <field name="name">Time Tables</field>
             <field name="type">ir.actions.act_window</field>

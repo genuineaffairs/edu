@@ -85,6 +85,8 @@ class GenerateTimeTable(models.TransientModel):
             end_time = datetime.timedelta(hours=line.period_id.duration)
             cu_en_date = curr_date + end_time
             s = fields.Datetime.from_string(self_obj.start_date)
+            timetable_day = self.env['op.timetable.day'].search(
+                [('name', '=', curr_date.strftime('%A'))], limit=1)
             if curr_date >= s and curr_date <= en_date:
                 self.env['op.timetable'].create({
                     'faculty_id': line.faculty_id.id,
@@ -94,15 +96,15 @@ class GenerateTimeTable(models.TransientModel):
                     'period_id': line.period_id.id,
                     'start_datetime': curr_date.strftime("%Y-%m-%d %H:%M:%S"),
                     'end_datetime': cu_en_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    'type': curr_date.strftime('%A'),
+                    # 'type': curr_date.strftime('%A'),
+                    'type': timetable_day.id,
                 })
             curr_date = curr_date + datetime.timedelta(days=day_cnt)
         return True
 
     @api.one
     def act_gen_time_table(self):
-        st_date = datetime.datetime.strptime(
-            self.start_date, '%Y-%m-%d')
+        st_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d')
         en_date = datetime.datetime.strptime(self.end_date, '%Y-%m-%d')
         st_day = week_number[st_date.strftime('%a')]
         for line in self.time_table_lines:
