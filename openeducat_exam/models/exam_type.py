@@ -26,7 +26,7 @@ class OpExamType(models.Model):
     _name = 'op.exam.type'
 
     name = fields.Char('Name', required=True)
-    code = fields.Char('Code', required=True)
+    code = fields.Char('Code')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

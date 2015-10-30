@@ -25,6 +25,7 @@ from openerp import models, fields
 class OpMarksheetRegister(models.Model):
     _name = 'op.marksheet.register'
 
+    name = fields.Char('Marksheet Register', required=True)
     exam_session_id = fields.Many2one(
         'op.exam.session', 'Exam', required=True)
     marksheet_line = fields.One2many(
@@ -37,7 +38,6 @@ class OpMarksheetRegister(models.Model):
          ('cancelled', 'Cancelled')], 'Status', required=True)
     total_pass = fields.Float('Total Pass')
     total_failed = fields.Float('Total Fail')
-    name = fields.Char('Marksheet Register', required=True)
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

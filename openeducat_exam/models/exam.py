@@ -28,6 +28,7 @@ class OpExam(models.Model):
     _inherit = 'mail.thread'
     _description = 'Exam'
 
+    name = fields.Char('Exam', required=True)
     session_id = fields.Many2one('op.exam.session', 'Exam Session')
     subject_id = fields.Many2one('op.subject', 'Subject', required=True)
     exam_code = fields.Char('Exam Code', required=True)
@@ -46,7 +47,6 @@ class OpExam(models.Model):
         readonly=True, default='new', track_visibility='onchange')
     note = fields.Text('Note')
     responsible_id = fields.Many2many('op.faculty', string='Responsible')
-    name = fields.Char('Exam', required=True)
     total_marks = fields.Float('Total Marks', required=True)
     min_marks = fields.Float('Passing Marks', required=True)
 

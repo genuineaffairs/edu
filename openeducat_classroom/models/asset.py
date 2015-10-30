@@ -27,8 +27,8 @@ class OpAsset(models.Model):
 
     asset_id = fields.Many2one('op.classroom', 'Asset')
     product_id = fields.Many2one('product.product', 'Product', required=True)
-    code = fields.Char('Code', size=256)
-    product_uom_qty = fields.Float('Quantity', required=True)
+    code = fields.Char('Code')
+    product_uom_qty = fields.Float('Quantity', required=True, default=1.0)
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

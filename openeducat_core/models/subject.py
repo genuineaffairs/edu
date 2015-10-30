@@ -26,7 +26,7 @@ class OpSubject(models.Model):
     _name = 'op.subject'
 
     name = fields.Char('Name', required=True)
-    code = fields.Char('Code', required=True)
+    code = fields.Char('Code')
     course_id = fields.Many2one('op.course', 'Course')
     grade_weightage = fields.Float('Grade Weightage')
     type = fields.Selection(

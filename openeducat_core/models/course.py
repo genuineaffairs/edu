@@ -26,9 +26,9 @@ class OpCourse(models.Model):
     _name = 'op.course'
 
     name = fields.Char('Name', required=True)
-    code = fields.Char('Code', required=True)
+    code = fields.Char('Code')
     parent_id = fields.Many2one('op.course', 'Parent Course')
-    section = fields.Char('Section', required=True)
+    section = fields.Char('Section')
     evaluation_type = fields.Selection(
         [('normal', 'Normal'), ('GPA', 'GPA'), ('CWA', 'CWA'), ('CCE', 'CCE')],
         'Evaluation Type', required=True)

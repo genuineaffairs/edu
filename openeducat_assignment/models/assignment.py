@@ -27,7 +27,7 @@ class OpAssignment(models.Model):
     _inherit = 'mail.thread'
     _description = 'Assignment'
 
-    name = fields.Char('Name', size=16, required=True)
+    name = fields.Char('Name', required=True)
     course_id = fields.Many2one('op.course', 'Course', required=True)
     batch_id = fields.Many2one('op.batch', 'Batch')
     subject_id = fields.Many2one('op.subject', 'Subject', required=True)

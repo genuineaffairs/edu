@@ -26,7 +26,7 @@ class OpRollNumber(models.Model):
     _name = 'op.roll.number'
     _rec_name = 'roll_number'
 
-    roll_number = fields.Char('Roll Number', size=8, required=True)
+    roll_number = fields.Char('Roll Number', required=True)
     course_id = fields.Many2one('op.course', 'Course', required=True)
     batch_id = fields.Many2one('op.batch', 'Batch', required=True)
     student_id = fields.Many2one('op.student', 'Student', required=True)
