@@ -26,7 +26,7 @@ class OpPassStatus(models.Model):
     _name = 'op.pass.status'
     _description = 'Pass Status'
 
-    name = fields.Char('Name', size=256)
+    name = fields.Char('Name')
     number = fields.Float('Minimum Percentage')
     result = fields.Char('Result to Display')
 

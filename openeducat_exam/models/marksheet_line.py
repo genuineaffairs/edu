@@ -34,7 +34,7 @@ class OpMarksheetLine(models.Model):
     result_line = fields.One2many('op.result.line', 'result_id', 'Results')
     total_marks = fields.Float("Total Marks")
     total_per = fields.Float("Total Percentage")
-    result = fields.Char("Result", size=256)
+    result = fields.Char("Result")
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -37,7 +37,7 @@ class OpMarksheetRegister(models.Model):
          ('cancelled', 'Cancelled')], 'Status', required=True)
     total_pass = fields.Float('Total Pass')
     total_failed = fields.Float('Total Fail')
-    name = fields.Char('Marksheet Register', size=256, required=True)
+    name = fields.Char('Marksheet Register', required=True)
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -25,7 +25,7 @@ from openerp import models, fields
 class OpExamRoom(models.Model):
     _name = 'op.exam.room'
 
-    name = fields.Char('Name', size=256, required=True)
+    name = fields.Char('Name', required=True)
     classroom_id = fields.Many2one('op.classroom', 'Classroom', required=True)
     capacity = fields.Integer('Capacity', required=True)
     course_ids = fields.Many2many('op.course', string='Course(s)')

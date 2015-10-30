@@ -30,7 +30,7 @@ class OpExam(models.Model):
 
     session_id = fields.Many2one('op.exam.session', 'Exam Session')
     subject_id = fields.Many2one('op.subject', 'Subject', required=True)
-    exam_code = fields.Char('Exam Code', size=8, required=True)
+    exam_code = fields.Char('Exam Code', required=True)
     exam_type = fields.Many2one('op.exam.type', 'Exam Type', required=True)
     evaluation_type = fields.Selection(
         [('normal', 'Normal'), ('GPA', 'GPA'), ('CWA', 'CWA'), ('CCE', 'CCE')],
@@ -46,7 +46,7 @@ class OpExam(models.Model):
         readonly=True, default='new', track_visibility='onchange')
     note = fields.Text('Note')
     responsible_id = fields.Many2many('op.faculty', string='Responsible')
-    name = fields.Char('Exam', size=256, required=True)
+    name = fields.Char('Exam', required=True)
     total_marks = fields.Float('Total Marks', required=True)
     min_marks = fields.Float('Passing Marks', required=True)
 

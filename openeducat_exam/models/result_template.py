@@ -29,7 +29,7 @@ class OpResultTemplate(models.Model):
 
     exam_session_id = fields.Many2one(
         'op.exam.session', 'Exam Session', required=True)
-    name = fields.Char("Name", size=254, required=True)
+    name = fields.Char("Name", required=True)
     result_date = fields.Date('Result Date', required=True)
     line_ids = fields.One2many(
         'op.result.template.line', 'result_id', 'Session Lines')

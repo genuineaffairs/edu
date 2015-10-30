@@ -25,7 +25,7 @@ from openerp import models, fields
 class OpMinClearanceCriteria(models.Model):
     _name = "op.min.clear.criteria"
 
-    name = fields.Char('Name', size=256)
+    name = fields.Char('Name')
     number = fields.Float('Number of Failed Subject')
     result = fields.Char('Result to Display')
 
