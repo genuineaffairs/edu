@@ -43,11 +43,11 @@
                                 <br></br>
                                 <table class="table table-bordered">
                                     <thead>
-                                        <th class="text-left">PERIOD </th>
+                                        <th class="text-center"> PERIOD </th>
                                         <th class="text-center"> MON </th>
-                                        <th class="text-center"> TUES </th>
+                                        <th class="text-center"> TUE </th>
                                         <th class="text-center"> WED </th>
-                                        <th class="text-center"> THUR </th>
+                                        <th class="text-center"> THU </th>
                                         <th class="text-center"> FRI </th>
                                         <th class="text-center"> SAT </th>
                                     </thead>

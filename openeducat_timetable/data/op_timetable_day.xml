@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="op_timetable_day_1" model="op.timetable.day">
+            <field name="name">Monday</field>
+            <field name="sequence" eval="1"/>
+        </record>
+        <record id="op_timetable_day_2" model="op.timetable.day">
+            <field name="name">Tuesday</field>
+            <field name="sequence" eval="2"/>
+        </record>
+        <record id="op_timetable_day_3" model="op.timetable.day">
+            <field name="name">Wednesday</field>
+            <field name="sequence" eval="3"/>
+        </record>
+        <record id="op_timetable_day_4" model="op.timetable.day">
+            <field name="name">Thursday</field>
+            <field name="sequence" eval="4"/>
+        </record>
+        <record id="op_timetable_day_5" model="op.timetable.day">
+            <field name="name">Friday</field>
+            <field name="sequence" eval="4"/>
+        </record>
+        <record id="op_timetable_day_6" model="op.timetable.day">
+            <field name="name">Saturday</field>
+            <field name="sequence" eval="4"/>
+        </record>
+    </data>
+</odoo>

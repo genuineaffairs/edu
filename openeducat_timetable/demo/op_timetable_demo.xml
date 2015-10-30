@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data noupdate="1">
-        <record id="op_timetable_1" model="op.timetable">
+        <!-- <record id="op_timetable_1" model="op.timetable">
             <field name="period_id" ref="op_period_1"/>
             <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
             <field name="course_id" ref="openeducat_core.op_course_2"/>
@@ -40,6 +40,192 @@
             <field name="start_datetime" eval="time.strftime('%Y-%m-06 06:30:00')"/>
             <field name="end_datetime" eval="time.strftime('%Y-%m-06 07:30:00')"/>
             <field name="type" ref="op_timetable_day_2"/>
+        </record> -->
+
+        <record id="op_timetable_1" model="op.timetable">
+            <field name="period_id" ref="op_period_1"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_1"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-02 10:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-02 11:00:00')"/>
+            <field name="type" ref="op_timetable_day_1"/>
         </record>
+        <record id="op_timetable_2" model="op.timetable">
+            <field name="period_id" ref="op_period_1"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_1"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-03 10:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-03 11:00:00')"/>
+            <field name="type" ref="op_timetable_day_2"/>
+        </record>
+        <record id="op_timetable_3" model="op.timetable">
+            <field name="period_id" ref="op_period_1"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_1"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-04 10:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-04 11:00:00')"/>
+            <field name="type" ref="op_timetable_day_3"/>
+        </record>
+         <record id="op_timetable_4" model="op.timetable">
+            <field name="period_id" ref="op_period_1"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_1"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-05 10:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-05 11:00:00')"/>
+            <field name="type" ref="op_timetable_day_4"/>
+        </record>
+         <record id="op_timetable_5" model="op.timetable">
+            <field name="period_id" ref="op_period_1"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_1"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-06 10:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-06 11:00:00')"/>
+            <field name="type" ref="op_timetable_day_5"/>
+        </record>
+         <record id="op_timetable_6" model="op.timetable">
+            <field name="period_id" ref="op_period_1"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_1"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_1"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-07 10:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-07 11:00:00')"/>
+            <field name="type" ref="op_timetable_day_6"/>
+        </record>
+
+
+        <record id="op_timetable_7" model="op.timetable">
+            <field name="period_id" ref="op_period_2"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_2"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_2"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-02 11:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-02 12:00:00')"/>
+            <field name="type" ref="op_timetable_day_1"/>
+        </record>
+        <record id="op_timetable_8" model="op.timetable">
+            <field name="period_id" ref="op_period_2"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_2"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_2"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-03 11:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-03 12:00:00')"/>
+            <field name="type" ref="op_timetable_day_2"/>
+        </record>
+        <record id="op_timetable_9" model="op.timetable">
+            <field name="period_id" ref="op_period_2"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_2"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_2"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-04 11:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-04 12:00:00')"/>
+            <field name="type" ref="op_timetable_day_3"/>
+        </record>
+        <record id="op_timetable_10" model="op.timetable">
+            <field name="period_id" ref="op_period_2"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_2"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_2"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-05 11:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-05 12:00:00')"/>
+            <field name="type" ref="op_timetable_day_4"/>
+        </record>
+        <record id="op_timetable_11" model="op.timetable">
+            <field name="period_id" ref="op_period_2"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_2"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_2"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-06 11:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-06 12:00:00')"/>
+            <field name="type" ref="op_timetable_day_5"/>
+        </record>
+        <record id="op_timetable_12" model="op.timetable">
+            <field name="period_id" ref="op_period_2"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_2"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_2"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-07 11:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-07 12:00:00')"/>
+            <field name="type" ref="op_timetable_day_6"/>
+        </record>
+
+
+        <record id="op_timetable_13" model="op.timetable">
+            <field name="period_id" ref="op_period_3"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_3"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_3"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-02 12:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-02 13:00:00')"/>
+            <field name="type" ref="op_timetable_day_1"/>
+        </record>
+        <record id="op_timetable_14" model="op.timetable">
+            <field name="period_id" ref="op_period_3"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_3"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_3"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-03 12:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-03 13:00:00')"/>
+            <field name="type" ref="op_timetable_day_2"/>
+        </record>
+         <record id="op_timetable_15" model="op.timetable">
+            <field name="period_id" ref="op_period_3"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_3"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_3"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-04 12:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-04 13:00:00')"/>
+            <field name="type" ref="op_timetable_day_3"/>
+        </record>
+         <record id="op_timetable_16" model="op.timetable">
+            <field name="period_id" ref="op_period_3"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_3"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_3"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-05 12:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-05 13:00:00')"/>
+            <field name="type" ref="op_timetable_day_4"/>
+        </record>
+        <record id="op_timetable_17" model="op.timetable">
+            <field name="period_id" ref="op_period_3"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_3"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_3"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-06 12:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-06 13:00:00')"/>
+            <field name="type" ref="op_timetable_day_5"/>
+        </record>
+        <record id="op_timetable_18" model="op.timetable">
+            <field name="period_id" ref="op_period_3"/>
+            <field name="faculty_id" ref="openeducat_core.op_faculty_3"/>
+            <field name="course_id" ref="openeducat_core.op_course_2"/>
+            <field name="batch_id" ref="openeducat_core.op_batch_1"/>
+            <field name="subject_id" ref="openeducat_core.op_subject_3"/>
+            <field name="start_datetime" eval="time.strftime('%Y-%m-07 12:00:00')"/>
+            <field name="end_datetime" eval="time.strftime('%Y-%m-07 13:00:00')"/>
+            <field name="type" ref="op_timetable_day_6"/>
+        </record>
+
     </data>
 </openerp>

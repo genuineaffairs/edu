@@ -34,7 +34,7 @@ class OpTimetable(models.Model):
     _name = 'op.timetable'
     _description = 'Time Table'
     _rec_name = 'faculty_id'
-    _order = 'type'
+    _order = 'type, period_id'
 
     period_id = fields.Many2one('op.period', 'Period', required=True)
     start_datetime = fields.Datetime('Start Time', required=True)
