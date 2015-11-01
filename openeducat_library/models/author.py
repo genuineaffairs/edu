@@ -25,9 +25,9 @@ from openerp import models, fields
 class OpAuthor(models.Model):
     _name = 'op.author'
 
-    name = fields.Char('Name', size=128, required=True)
+    name = fields.Char('Name', required=True)
     address = fields.Many2one('res.partner', 'Address')
-    book_ids = fields.Many2many('op.book', string='Book(s)')
+    book_ids = fields.Many2many('op.book', string='Books')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

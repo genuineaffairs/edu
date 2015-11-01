@@ -19,18 +19,17 @@
 #
 ###############################################################################
 
-from openerp import models, fields
+from openerp import api, models, fields
 
 
 class OpLibraryCardType(models.Model):
     _name = 'op.library.card.type'
     _description = 'Library Card Type'
 
-    name = fields.Char('Name', size=256, required=True)
-    allow_book = fields.Integer('No of Books Allowed', size=10, required=True)
-    duration = fields.Float(
-        'Duration', help='Duration in terms of Number of Lead Days',
-        required=True)
+    name = fields.Char('Name', required=True)
+    allow_book = fields.Integer('No of Books Allowed', size=4, required=True)
+    duration = fields.Float('Duration', required=True,
+        help='Duration in terms of Number of Lead Days')
     penalty_amt_per_day = fields.Float('Penalty Amount per Day', required=True)
 
 
@@ -39,17 +38,28 @@ class OpLibraryCard(models.Model):
     _rec_name = 'number'
     _description = 'Library Card'
 
-    partner_id = fields.Many2one(
-        'res.partner', 'Student/Faculty', required=True)
-    number = fields.Char('Number', size=256, required=True)
-    library_card_type_id = fields.Many2one(
-        'op.library.card.type', 'Card Type', required=True)
+    partner_id = fields.Many2one('res.partner', 'Card Holder', required=True)
+    number = fields.Char('Number', required=True)
+    library_card_type_id = fields.Many2one('op.library.card.type', 'Card Type', required=True)
     issue_date = fields.Date('Issue Date', required=True)
-    type = fields.Selection(
-        [('student', 'Student'), ('faculty', 'Faculty')],
+    type = fields.Selection([('student', 'Student'), ('faculty', 'Faculty'), ('other', 'Other')],
         'Type', default='student', required=True)
     student_id = fields.Many2one('op.student', 'Student')
     faculty_id = fields.Many2one('op.faculty', 'Faculty')
+
+    @api.onchange('type')
+    def onchange_type(self):
+        if self.type == 'student':
+            self.faculty_id = False
+        elif self.type == 'faculty':
+            self.student_id = False
+        else:
+            self.student_id = False
+            self.faculty_id = False
+
+    @api.onchange('student_id', 'faculty_id')
+    def onchage_partner_id(self):
+        self.partner_id = self.student_id.partner_id or self.faculty_id.partner_id or False
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
