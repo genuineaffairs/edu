@@ -24,22 +24,22 @@ from openerp import models, fields
 
 class OpAttendanceLine(models.Model):
     _name = 'op.attendance.line'
-    _rec_name = 'attendance_id'
+    _rec_name = 'attendance_date'
 
-    attendance_id = fields.Many2one(
-        'op.attendance.sheet', 'Attendance', required=True)
+    register_id = fields.Many2one('op.attendance.register', 'Attendance Register', required=True)
+    att_sheet_id = fields.Many2one('op.attendance.sheet', 'Attendance Sheet', required=True)
     student_id = fields.Many2one('op.student', 'Student', required=True)
     present = fields.Boolean('Present ?')
-    course_id = fields.Many2one(
-        'op.course', 'Course', related='student_id.course_id', store=True,
+    attendance_date = fields.Date('Date', related='att_sheet_id.attendance_date',
         readonly=True)
-    batch_id = fields.Many2one(
-        'op.batch', 'Batch', related='student_id.batch_id', store=True,
-        readonly=True)
+    course_id = fields.Many2one(string='Course', related='att_sheet_id.course_id',
+        store=True, readonly=True)
+    batch_id = fields.Many2one(string='Batch', related='att_sheet_id.batch_id',
+        store=True, readonly=True)
     remark = fields.Char('Remark')
-    attendance_date = fields.Date(
-        'Date', related='attendance_id.attendance_date', store=True,
-        readonly=True)
 
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    _sql_constraints = [
+        ('attendance_uniq', 'unique (att_sheet_id, student_id)',
+            "You can't enter duplicate entry of student!"),
+    ]

@@ -27,29 +27,31 @@ class OpAttendanceSheet(models.Model):
     _rec_name = 'attendance_date'
 
     @api.multi
-    @api.depends('attendance_line.present')
+    @api.depends('attendance_line_ids.present')
     def _total_present_absent(self):
         for record in self:
-            record.total_present = len(record.attendance_line.filtered(
+            record.total_present = len(record.attendance_line_ids.filtered(
                 lambda rec: rec.present))
-            record.total_absent = len(record.attendance_line.filtered(
+            record.total_absent = len(record.attendance_line_ids.filtered(
                 lambda rec: rec.present is False))
             record.total = record.total_present + record.total_absent
 
 
     # name = fields.Char('Name')
-    register_id = fields.Many2one(
-        'op.attendance.register', 'Register', required=True)
-    attendance_date = fields.Date(
-        'Date', required=True, default=lambda self: fields.Date.today())
-    attendance_line = fields.One2many(
-        'op.attendance.line', 'attendance_id', 'Attendance Line')
-    total_present = fields.Integer(
-        'Total Present', compute='_total_present_absent')
-    total_absent = fields.Integer(
-        'Total Absent', compute='_total_present_absent')
+    register_id = fields.Many2one('op.attendance.register', 'Register', required=True)
+    attendance_date = fields.Date('Date', required=True, default=lambda self: fields.Date.today())
+    attendance_line_ids = fields.One2many('op.attendance.line', 'att_sheet_id', 'Attendance Line')
+    course_id = fields.Many2one(string='Course', related='register_id.course_id',
+        store=True)
+    batch_id = fields.Many2one(string='Batch', related='register_id.batch_id',
+        store=True)
+    total_present = fields.Integer('Present', compute='_total_present_absent')
+    total_absent = fields.Integer('Absent', compute='_total_present_absent')
     total = fields.Integer(compute='_total_present_absent')
     faculty_id = fields.Many2one('op.faculty', 'Faculty')
 
+    _sql_constraints = [
+        ('sheet_uniq', 'unique (register_id, attendance_date)',
+            "There is already one attencance sheet availble for same date!"),
+    ]
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

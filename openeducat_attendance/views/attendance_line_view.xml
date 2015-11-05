@@ -4,34 +4,36 @@
         <record id="view_op_attendance_line_tree" model="ir.ui.view">
             <field name="name">op.attendance.line.tree</field>
             <field name="model">op.attendance.line</field>
-            <field name="priority" eval="8" />
+            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="Attendance Line">
-                    <field name="attendance_id" />
-                    <field name="student_id" />
-                    <field name="present" />
-                    <field name="remark" />
-                    <field name="attendance_date" />
-                    <field name="course_id" />
-                    <field name="batch_id" />
+                    <field name="register_id"/>
+                    <field name="att_sheet_id"/>
+                    <field name="student_id"/>
+                    <field name="attendance_date"/>
+                    <field name="course_id"/>
+                    <field name="batch_id"/>
+                    <field name="present"/>
+                    <field name="remark"/>
                 </tree>
             </field>
         </record>
         <record id="view_op_attendance_line_form" model="ir.ui.view">
             <field name="name">op.attendance.line.form</field>
             <field name="model">op.attendance.line</field>
-            <field name="priority" eval="8" />
+            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Attendance Line">
                     <sheet>
                         <group col="4" colspan="4">
-                            <field name="student_id" />
-                            <field name="attendance_id" />
-                            <field name="present" />
-                            <field name="remark" />
-                            <field name="course_id" />
-                            <field name="batch_id" />
-                            <field name="attendance_date" />
+                            <field name="register_id"/>
+                            <field name="remark"/>
+                            <field name="att_sheet_id"/>
+                            <field name="attendance_date"/>
+                            <field name="student_id" domain="[('course_id', '=', course_id)]"/>
+                            <field name="course_id"/>
+                            <field name="present"/>
+                            <field name="batch_id"/>
                         </group>
                     </sheet>
                 </form>
@@ -40,21 +42,21 @@
         <record id="view_op_attendance_line_search" model="ir.ui.view">
             <field name="name">op.attendance.line.search</field>
             <field name="model">op.attendance.line</field>
-            <field name="priority" eval="8" />
+            <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <search string="Attendance Line">
-                    <field name="attendance_id" />
-                    <field name="student_id" />
-                    <field name="present" />
-                    <newline />
+                    <field name="att_sheet_id"/>
+                    <field name="student_id"/>
+                    <field name="present"/>
+                    <newline/>
                     <group expand="0" string="Group By...">
-                        <filter string="Attendance" domain="[]"
-                            context="{'group_by':'attendance_id'}" />
-                        <filter string="Course" domain="[]" context="{'group_by':'course_id'}" />
+                        <filter string="Attendance Sheet" domain="[]"
+                            context="{'group_by':'att_sheet_id'}"/>
+                        <filter string="Course" domain="[]" context="{'group_by':'course_id'}"/>
                         <filter string="Batch" domain="[]"
-                            context="{'group_by':'batch_id'}" />
-                        <filter string="Student" domain="[]" context="{'group_by':'student_id'}" />
-                        <filter string="Present ?" domain="[]" context="{'group_by':'present'}" />
+                            context="{'group_by':'batch_id'}"/>
+                        <filter string="Student" domain="[]" context="{'group_by':'student_id'}"/>
+                        <filter string="Present ?" domain="[]" context="{'group_by':'present'}"/>
                     </group>
                 </search>
             </field>
@@ -65,21 +67,21 @@
             <field name="res_model">op.attendance.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_op_attendance_line_search" />
+            <field name="search_view_id" ref="view_op_attendance_line_search"/>
             <field name="domain">[]</field>
             <field name="context">{}</field>
         </record>
         <record model="ir.actions.act_window.view" id="act_open_op_attendance_line_view_form">
-            <field name="act_window_id" ref="act_open_op_attendance_line_view" />
-            <field name="sequence" eval="20" />
+            <field name="act_window_id" ref="act_open_op_attendance_line_view"/>
+            <field name="sequence" eval="20"/>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_op_attendance_line_form" />
+            <field name="view_id" ref="view_op_attendance_line_form"/>
         </record>
         <record model="ir.actions.act_window.view" id="act_open_op_attendance_line_view_tree">
-            <field name="act_window_id" ref="act_open_op_attendance_line_view" />
-            <field name="sequence" eval="10" />
+            <field name="act_window_id" ref="act_open_op_attendance_line_view"/>
+            <field name="sequence" eval="10"/>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_op_attendance_line_tree" />
+            <field name="view_id" ref="view_op_attendance_line_tree"/>
         </record>
     </data>
 </openerp>

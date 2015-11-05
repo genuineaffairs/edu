@@ -31,5 +31,3 @@ class OpAttendanceRegister(models.Model):
     batch_id = fields.Many2one('op.batch', 'Batch', required=True)
     subject_id = fields.Many2one('op.subject', 'Subject')
 
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

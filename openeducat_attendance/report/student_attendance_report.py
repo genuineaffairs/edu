@@ -57,7 +57,7 @@ class StudentAttendanceGenerate(report_sxw.rml_parse):
         lst = []
         for sheet in sheet_search:
             sheet_browse = sheet_pool.browse(self.cr, self.uid, sheet)
-            for line in sheet_browse.attendance_line:
+            for line in sheet_browse.attendance_line_ids:
                 dic = {}
                 if data['student_id'] == line.student_id.id and \
                         not line.present:
