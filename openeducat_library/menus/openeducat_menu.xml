@@ -21,11 +21,11 @@
 
 
 
-        <!-- Configuration Management -->
+        <!-- Configuration settings -->
         <menuitem id="menu_op_school_library_config" name="Library"
             parent="openeducat_core.menu_op_config_root" sequence="10"
             groups="openeducat_core.group_op_back_office,openeducat_library.group_op_library,openeducat_core.group_op_back_office_admin" />
-        
+
         <menuitem id="menu_op_library_card_sub" name="Library Cards"
             parent="menu_op_school_library_config" sequence="10"
             action="act_open_op_library_card_view" groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin" />

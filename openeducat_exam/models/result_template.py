@@ -57,12 +57,10 @@ class OpResultTemplate(models.Model):
                         'exam_id': exam.exam_id.id,
                         'exam_tmpl_id': exam.id,
                         'marks': (exam.weightage / 100) * attd.marks,
-                        'status': attd.marks >= exam.pass_marks and
-                        'pass' or 'fail',
+                        'status': 'Pass' if attd.marks >= exam.pass_marks else 'Fail',
                         'per': (100 * attd.marks) / exam.total_marks,
                         'student_id': attd.student_id.id,
-                        'total_marks': (exam.weightage / 100) *
-                        exam.total_marks,
+                        'total_marks': (exam.weightage / 100) * exam.total_marks,
                     }
                     ret_id = self.env['op.result.line'].create(result_dict)
                     student_list.append(

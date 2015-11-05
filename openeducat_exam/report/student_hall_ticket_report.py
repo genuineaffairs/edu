@@ -28,8 +28,7 @@ from openerp.report import report_sxw
 class StudentHallTicketReport(report_sxw.rml_parse):
 
     def __init__(self, cr, uid, name, context=None):
-        super(StudentHallTicketReport, self).__init__(
-            cr, uid, name, context=context)
+        super(StudentHallTicketReport, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({
             'time': time,
             'get_data': self.get_data,
@@ -70,7 +69,7 @@ class StudentHallTicketReport(report_sxw.rml_parse):
         for student in exam_student.browse(self.cr, self.uid, student_search):
             res = {
                 'exam': datas.name,
-                'exam_code': datas.exam_code,
+                'session_code': datas.session_code,
                 'course': datas.course_id.name,
                 'student': student.name,
                 'photo': student.photo,
@@ -84,9 +83,9 @@ class StudentHallTicketReport(report_sxw.rml_parse):
 
 
 class ReportTicket(models.AbstractModel):
-    _name = 'report.openeducat_exam.report_ticket'
+    _name = 'report.openeducat_exam.report_hall_ticket'
     _inherit = 'report.abstract_report'
-    _template = 'openeducat_exam.report_ticket'
+    _template = 'openeducat_exam.report_hall_ticket'
     _wrapped_report_class = StudentHallTicketReport
 
 

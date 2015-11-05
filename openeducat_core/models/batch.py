@@ -30,6 +30,7 @@ class OpBatch(models.Model):
     start_date = fields.Date('Start Date', required=True)
     end_date = fields.Date('End Date', required=True)
     course_id = fields.Many2one('op.course', 'Course', required=True)
+    student_ids = fields.One2many('op.student', 'batch_id', 'Students')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

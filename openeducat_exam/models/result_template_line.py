@@ -29,14 +29,12 @@ class OpResultTemplateLine(models.Model):
 
     exam_session_id = fields.Many2one('op.exam.session', 'Exam Session')
     detailed_report = fields.Boolean('Detailed Report')
-    course_id = fields.Many2one(
-        'op.course', 'Course', related='exam_session_id.course_id',
-        readonly=True)
-    batch_id = fields.Many2one(
-        'op.batch', 'Batch', related='exam_session_id.batch_id', readonly=True)
+    course_id = fields.Many2one('op.course', 'Course', related='exam_session_id.course_id',
+        store=True, readonly=True)
+    batch_id = fields.Many2one('op.batch', 'Batch', related='exam_session_id.batch_id',
+        store=True, readonly=True)
     result_id = fields.Many2one('op.result.template', 'Result Template Line')
-    exam_lines = fields.One2many(
-        'op.result.exam.line', 'result_id', 'Exam Lines')
+    exam_lines = fields.One2many('op.result.exam.line', 'result_id', 'Exam Lines')
 
     @api.onchange('exam_session_id')
     def onchange_exam_session(self):

@@ -29,13 +29,12 @@ class OpResultExamLine(models.Model):
 
     result_id = fields.Many2one('op.result.template.line', 'Session Template')
     exam_id = fields.Many2one('op.exam', 'Exam')
-    pass_marks = fields.Float(
-        'Passing Marks', related='exam_id.min_marks', readonly=True)
-    total_marks = fields.Float(
-        'Total Marks', related='exam_id.total_marks', readonly=True)
+    pass_marks = fields.Float('Passing Marks', related='exam_id.min_marks',
+        store=True, readonly=True)
+    total_marks = fields.Float('Total Marks', related='exam_id.total_marks',
+        store=True, readonly=True)
     weightage = fields.Float('Weightage')
-    result_lines = fields.One2many(
-        'op.result.line', 'exam_tmpl_id', 'Result Lines')
+    result_lines = fields.One2many('op.result.line', 'exam_tmpl_id', 'Result Lines')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

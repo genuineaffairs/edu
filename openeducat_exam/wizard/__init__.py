@@ -19,7 +19,8 @@
 #
 ###############################################################################
 
-from . import student_hall_tickets_wizard
+# from . import student_hall_tickets_wizard
+from . import generate_result_wizard
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

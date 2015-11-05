@@ -26,8 +26,7 @@ class OpResultLine(models.Model):
     _name = 'op.result.line'
     _rec_name = 'marks'
 
-    marksheet_line_id = fields.Many2one(
-        'op.marksheet.line', 'Marksheet Line')
+    marksheet_line_id = fields.Many2one('op.marksheet.line', 'Marksheet Line')
     exam_id = fields.Many2one('op.exam', 'Exam', required=True)
     exam_tmpl_id = fields.Many2one('op.result.exam.line', 'Exam Template')
     marks = fields.Float('Marks', required=True)
@@ -37,6 +36,3 @@ class OpResultLine(models.Model):
         [('pass', 'Pass'), ('fail', 'Fail')], 'Status', required=True)
     result_id = fields.Many2one('op.marksheet.line', 'Marksheet Line')
     total_marks = fields.Float('Percentage')
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

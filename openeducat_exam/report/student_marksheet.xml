@@ -66,7 +66,7 @@
                                                         <td>
                                                             :
                                                             <span
-                                                                t-raw="'%s &lt;&gt;' %   line.marksheet_reg_id.exam_session_id.exam_code if   line.marksheet_reg_id.exam_session_id.exam_code else ''" />
+                                                                t-raw="'%s &lt;&gt;' %   line.marksheet_reg_id.exam_session_id.session_code if   line.marksheet_reg_id.exam_session_id.session_code else ''" />
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -94,11 +94,11 @@
                                                             </td>
                                                             <td class="text-right">
                                                                 <span
-                                                                    t-raw="'%s &lt;&gt;' % formatLang(result.exam_id.total_marks) if formatLang(result.exam_id.total_marks) else ''" />
+                                                                    t-raw="'%s &lt;&gt;' % formatLang(result.exam_id.total_mark) if formatLang(result.exam_id.total_mark) else ''" />
                                                             </td>
                                                             <td class="text-right">
                                                                 <span
-                                                                    t-raw="'%s &lt;&gt;' %  formatLang(result.exam_id.min_marks) if  formatLang(result.exam_id.min_marks) else ''" />
+                                                                    t-raw="'%s &lt;&gt;' %  formatLang(result.exam_id.min_mark) if  formatLang(result.exam_id.min_mark) else ''" />
                                                             </td>
                                                             <td class="text-right">
                                                                 <span
@@ -124,7 +124,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <span
-                                                                t-raw="'%s &lt;&gt;' %  formatLang(line.total_marks) if  formatLang(line.total_marks) else ''" />
+                                                                t-raw="'%s &lt;&gt;' %  formatLang(line.total_mark) if  formatLang(line.total_mark) else ''" />
                                                             /
                                                             <span
                                                                 t-raw="'%s &lt;&gt;' %  formatLang(get_total(line)) if  formatLang(get_total(line)) else ''" />

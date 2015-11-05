@@ -19,7 +19,7 @@
 #
 ###############################################################################
 
-from openerp import models, fields, api, _
+from openerp import _, api, fields, models
 from openerp.exceptions import ValidationError
 
 
@@ -27,20 +27,16 @@ class OpExamSession(models.Model):
     _name = 'op.exam.session'
     _description = 'Exam Session'
 
-    name = fields.Char('Exam', required=True)
+    name = fields.Char('Session', required=True)
+    session_code = fields.Char('Session Code', required=True)
     course_id = fields.Many2one('op.course', 'Course', required=True)
     batch_id = fields.Many2one('op.batch', 'Batch', required=True)
-    exam_code = fields.Char('Exam Code', required=True)
     start_date = fields.Date('Start Date', required=True)
     end_date = fields.Date('End Date', required=True)
-    room_id = fields.Many2one('op.exam.room', 'Room', required=True)
-    exam_ids = fields.One2many('op.exam', 'session_id', 'Exam(s)')
+    room_id = fields.Many2one('op.exam.room', 'Room')
+    exam_ids = fields.One2many('op.exam', 'session_id', 'Exams')
 
     @api.constrains('start_date', 'end_date')
     def _check_date_time(self):
         if self.start_date > self.end_date:
-            raise ValidationError(
-                _('Start Time should be greater than End Time!'))
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+            raise ValidationError(_('Start Date should be greater than End Date!'))

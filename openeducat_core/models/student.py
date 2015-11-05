@@ -34,6 +34,12 @@ class OpStudent(models.Model):
         for rec in self:
             rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
 
+    @api.multi
+    @api.depends('name', 'middle_name', 'last_name')
+    def _get_full_name(self):
+        for rec in self:
+            rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
+
     @api.one
     @api.depends('roll_number_line', 'batch_id', 'course_id')
     def _get_curr_roll_number(self):
@@ -46,7 +52,8 @@ class OpStudent(models.Model):
         else:
             self.roll_number = 0
 
-    full_name = fields.Char('Name', compute=_get_full_name)
+
+    full_name = fields.Char('Name', compute=_get_full_name, store=True)
     middle_name = fields.Char('Middle Name')
     last_name = fields.Char('Last Name', required=True)
     birth_date = fields.Date('Birth Date', required=True)
@@ -72,6 +79,12 @@ class OpStudent(models.Model):
     roll_number = fields.Char(
         'Current Roll Number', compute='_get_curr_roll_number', store=True)
     gr_no = fields.Char("GR Number")
+    # father details
+    father_id = fields.Many2one('res.partner', 'Father')
+    f_mobile = fields.Char(related='father_id.mobile', string='Father Mobile')
+    # mother details
+    mother_id = fields.Many2one('res.partner', 'Mother')
+    m_mobile = fields.Char(related='father_id.mobile', string='Father Mobile')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

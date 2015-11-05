@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <menuitem id="menu_op_school_config_hostel" name="Hostel Management"
+        <menuitem id="menu_op_school_config_hostel" name="Hostel settings"
             parent="openeducat_core.menu_op_school_config_root" sequence="50"/>
 
         <menuitem id="menu_op_hostel_sub" name="Hostels"

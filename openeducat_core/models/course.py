@@ -32,7 +32,5 @@ class OpCourse(models.Model):
     evaluation_type = fields.Selection(
         [('normal', 'Normal'), ('GPA', 'GPA'), ('CWA', 'CWA'), ('CCE', 'CCE')],
         'Evaluation Type', required=True)
-    subject_ids = fields.Many2many('op.subject', string='Subject(s)')
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    subject_ids = fields.Many2many('op.subject', 'op_course_subject_rel', 'course_id', 'subject_id',
+        string='Subjects')

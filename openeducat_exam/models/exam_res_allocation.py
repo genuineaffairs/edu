@@ -27,7 +27,7 @@ class OpExamResAllocation(models.Model):
 
     exam_session_ids = fields.Many2many(
         'op.exam.session', string='Select Exam Session')
-    exam_ids = fields.Many2many('op.exam', string='Exam(s)')
+    exam_ids = fields.Many2many('op.exam', string='Exams')
     faculty_ids = fields.Many2many('op.faculty', string='Faculty')
     student_ids = fields.Many2many('op.student', string='Student')
 

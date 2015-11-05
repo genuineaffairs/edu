@@ -28,8 +28,8 @@ class OpExamRoom(models.Model):
     name = fields.Char('Name', required=True)
     classroom_id = fields.Many2one('op.classroom', 'Classroom', required=True)
     capacity = fields.Integer('Capacity', required=True)
-    course_ids = fields.Many2many('op.course', string='Course(s)')
-    student_ids = fields.Many2many('op.student', string='Student(s)')
+    course_ids = fields.Many2many('op.course', string='Courses')
+    student_ids = fields.Many2many('op.student', string='Students')
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

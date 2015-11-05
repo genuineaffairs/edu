@@ -22,19 +22,23 @@
 from openerp import models, fields
 
 
+RESULT = [('pass', 'PASS'), ('fail', 'FAIL')]
+
 class OpMarksheetLine(models.Model):
     _name = 'op.marksheet.line'
-    _rec_name = 'student_id'
+    # _rec_name = 'student_id'
 
-    marksheet_reg_id = fields.Many2one(
-        'op.marksheet.register', 'Marksheet Register')
-    exam_session_id = fields.Many2one(
-        'op.result.template.line', 'Session Template')
-    student_id = fields.Many2one('op.student', 'Student', required=True)
-    result_line = fields.One2many('op.result.line', 'result_id', 'Results')
-    total_marks = fields.Float("Total Marks")
-    total_per = fields.Float("Total Percentage")
-    result = fields.Char("Result")
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    marksheet_id = fields.Many2one('op.marksheet', 'Marksheet',
+        select=True)
+    marksheet_register_id = fields.Many2one('op.marksheet.register', 'Register',
+        related='marksheet_id.marksheet_register_id')
+    exam_id = fields.Many2one('op.exam', 'Exam', related='marksheet_id.exam_id')
+    attendance_id = fields.Many2one('op.exam.attendance', 'Attendee')
+    exam_line_id = fields.Many2one('op.exam.line', 'Exam Line', store=True,
+        related='attendance_id.exam_line_id', select=True)
+    subject_id = fields.Many2one('op.subject', 'Subject', select=True,
+        related='attendance_id.exam_line_id.subject_id', store=True)
+    total_mark = fields.Integer('Total Mark', related='attendance_id.total_mark')
+    passing_mark = fields.Integer('Passing Mark', related='attendance_id.min_mark')
+    obtained_mark = fields.Integer('Obtained Mark')
+    result = fields.Selection(RESULT, 'Result')
