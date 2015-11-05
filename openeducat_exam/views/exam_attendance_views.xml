@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record id="view_op_exam_attendance_tree" model="ir.ui.view">
+            <field name="name">op.exam.attendance.tree</field>
+            <field name="model">op.exam.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <!-- <tree string="Attendees" create="false" edit="false" delete="false"> -->
+                <tree string="Attendees" create="false" edit="false">
+                    <field name="student_id"/>
+                    <field name="present"/>
+                    <field name="exam_id"/>
+                    <field name="exam_line_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_op_exam_attendance_search" model="ir.ui.view">
+            <field name="name">op.exam.attendance.search</field>
+            <field name="model">op.exam.attendance</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Attendees">
+                    <field name="student_id"/>
+                    <field name="exam_id"/>
+                    <field name="exam_line_id"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_student" string="Student" context="{'group_by':'student_id'}"/>
+                        <filter name="group_by_exam" string="Exam" context="{'group_by':'exam_id'}"/>
+                        <filter name="group_by_exam_line" string="Subject" context="{'group_by':'exam_line_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="act_open_op_exam_attendance_view">
+            <field name="name">Attendees</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.exam.attendance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_op_exam_attendance_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_group_by_exam_line':True}</field>
+        </record>
+        <!-- <record model="ir.actions.act_window.view" id="act_open_op_exam_view_form">
+            <field name="act_window_id" ref="act_open_op_exam_line_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_op_exam_line_form"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_exam_view_tree">
+            <field name="act_window_id" ref="act_open_op_exam_line_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_op_exam_line_tree"/>
+        </record> -->
+
+</odoo>

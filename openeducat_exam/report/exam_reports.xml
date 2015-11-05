@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <report
+        id="action_exam_timetable"
+        model="op.exam"
+        string="Time Table"
+        report_type="qweb-html"
+        name="openeducat_exam.report_exam_timetable"
+        file="openeducat_exam.report_exam_timetable"
+        attachment_use="False"
+    />
+
+    <report
+        id="action_hall_ticket_report"
+        model="op.exam"
+        string="Hall Tickets"
+        report_type="qweb-html"
+        name="openeducat_exam.report_hall_ticket"
+        file="openeducat_exam.report_hall_ticket"
+        attachment_use="False"
+    />
+
+</odoo>

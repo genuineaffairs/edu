@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_op_exam_tree" model="ir.ui.view">
+            <field name="name">op.exam.tree</field>
+            <field name="model">op.exam</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Exam">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="course_id"/>
+                    <field name="exam_type"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_op_exam_form" model="ir.ui.view">
+            <field name="name">op.exam.form</field>
+            <field name="model">op.exam</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Exam">
+                    <header groups="base.group_user">
+                        <button name="act_confirm" states="new" type="object" string="Confirm" class="oe_highlight"/>
+                        <button name="act_start" states="confirm" type="object" string="Start" class="oe_highlight"/>
+                        <button name="act_done" states="start" type="object" string="Done" class="oe_highlight"/>
+                        <button name="act_cancel" states="new" type="object" string="Cancel"/>
+                        <button name="act_new" states="cancel" type="object" string="Reset"/>
+                        <button name="%(act_generate_result_wizard)d" states="done" type="action"
+                            class="oe_highlight" string="Generate Result"/>
+                            <!-- attrs="{'invisible': [('print_result', '=', True)]}"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="new,confirm,start,done"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="course_id"/>
+                                <field name="batch_id" domain="[('course_id', '=', course_id)]"/>
+                                <field name="venue"/>
+                            </group>
+                            <group>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="evaluation_type"/>
+                                <field name="exam_type"/>
+                            </group>
+                        </group>
+                        <group invisible="True">
+                            <field name="print_result" invisible="True"/>
+                        </group>
+                        <notebook>
+                            <!-- <page string="Students">
+                                <field name="student_ids">
+                                    <tree>
+                                        <field name="full_name"/>
+                                    </tree>
+                                </field>
+                            </page> -->
+                            <page string="Exam Subjects">
+                                <field name="exam_line_ids">
+                                    <tree string="subject" editable="bottom">
+                                        <!-- Note: domain, show only course subjects -->
+                                        <field name="subject_id" />
+                                        <field name="start_time"/>
+                                        <field name="end_time"/>
+                                        <field name="instructor_id"/>
+                                        <!-- <field name="course_id" invisible="True"/> -->
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <separator string="Description"/>
+                        <field name="note" placeholder="Other note..."/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="view_op_exam_search" model="ir.ui.view">
+            <field name="name">op.exam.search</field>
+            <field name="model">op.exam</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <search string="Exam">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="exam_type"/>
+                    <field name="evaluation_type"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="state"/>
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Exam" domain="[]" context="{'group_by':'name'}"/>
+                        <filter string="Exam Code" domain="[]" context="{'group_by':'code'}"/>
+                        <filter string="Course" domain="[]" context="{'group_by':'course_id'}"/>
+                        <filter string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
+                        <filter string="Exam Type" domain="[]" context="{'group_by':'exam_type'}"/>
+                        <filter string="Evaluation Type" domain="[]" context="{'group_by':'evaluation_type'}"/>
+                        <filter string="State" domain="[]" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="act_open_op_exam_view">
+            <field name="name">Exams</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.exam</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_op_exam_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_exam_view_form">
+            <field name="act_window_id" ref="act_open_op_exam_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_op_exam_form"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_exam_view_tree">
+            <field name="act_window_id" ref="act_open_op_exam_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_op_exam_tree"/>
+        </record>
+
+    </data>
+</openerp>

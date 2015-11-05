@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="op_generate_result_wizard_form">
+            <field name="name">generate.result.wizard.form</field>
+            <field name="model">op.generate.result</field>
+            <field name="arch" type="xml">
+                <form string="Generate Result">
+                    <group>
+                        <field name="exam_id" readonly="True" widget="selection"/>
+                        <field name="name"/>
+                        <field name="declare_date"/>
+                        <field name="generated_by"/>
+                        <field name="result_template_id" required="True"/>
+                    </group>
+                    <footer groups="base.group_user">
+                        <button name="generate_result" type="object" string="Generate Result" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="act_generate_result_wizard">
+            <field name="name">Generate Result</field>
+            <field name="res_model">op.generate.result</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="op_generate_result_wizard_form"/>
+            <field name="context">{'default_exam_id': active_id}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

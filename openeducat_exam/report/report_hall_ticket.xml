@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_hall_ticket_document">
+            <!-- <style>
+                .font{
+                font-size:14px;
+                font-family:"Helvetica"
+                }
+                @page{
+                margin-top:1%;
+                size: A4;
+                }
+            </style> -->
+
+    <t t-call="report.internal_layout">
+        <t t-foreach="o.student_ids" t-as="student">
+            <div class="page">
+                <t t-set="index" t-value="1"/>
+                <div class="row text-center"><h3>Hall Ticket</h3></div>
+                <table class="table">
+                    <tr>
+                        <td colspan="3"><span>Student Name : </span><t t-esc="student.full_name"/></td>
+                        <td colspan="3" class="text-right">Course: <t t-esc="o.course_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Subject</td>
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Marks</td>
+                        <td>Instructor Sign</td>
+                    </tr>
+                    <t t-foreach="o.exam_line_ids" t-as="exam_line">
+                        <tr>
+                            <td><t t-esc="index"/></td>
+                            <td><t t-esc="exam_line.subject_id.name"/></td>
+                            <td><t t-esc="exam_line.start_time"/></td>
+                            <td><t t-esc="exam_line.end_time"/></td>
+                            <td><t t-esc="exam_line.total_mark"/></td>
+                            <td></td>
+                            <t t-set="index" t-value="index+1"/>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </t>
+
+
+                <!-- <t t-foreach="get_data(data)" t-as="o">
+                    <div class="header" style="margin-left:10%">
+                        <div class="row">
+                            <div>
+                                <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo"
+                                    width="380" hight="880" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="font">
+                        <div class="page">
+                            <div class="row text-center">
+                                <h3>
+                                    <b>Hall Ticket</b>
+                                </h3>
+                                (
+                                <span t-raw="'%s &lt;&gt;' % o['exam'] if o['exam'] else ''" />
+                                <span t-raw="'%s &lt;&gt;' % o['session_code'] if o['session_code'] else ''" />
+                                )
+                            </div>
+                            <br></br>
+                            <br></br>
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>
+                                                        <b>Student Name : </b>
+                                                        <span t-esc="o['student']" />
+                                                        <span
+                                                            t-raw="'%s &lt;&gt;' %  o['student_middle'] if  o['student_middle']  else ''" />
+                                                        <span
+                                                            t-raw="'%s &lt;&gt;' %   o['student_last']  if  o['student_last']  else ''" />
+                                                    </td>
+                                                    <td>
+                                                        <b>Roll No : </b>
+                                                        <span
+                                                            t-raw="'%s &lt;&gt;' %   o['roll_number']  if  o['roll_number']  else ''" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <b>Course : </b>
+                                                        <span
+                                                            t-raw="'%s &lt;&gt;' %   o['course']  if  o['course']  else ''" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <img t-if="o['photo']" t-att-src="'data:image/png;base64,%s' % o['photo']"
+                                                width="80" hight="80" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <table class="table table-condensed">
+                                <thead>
+                                    <th class="text-center">Subject</th>
+                                    <th class="text-center">Date</th>
+                                    <th class="text-center">Time</th>
+                                    <th class="text-center">Supervisor Sign</th>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o['line']" t-as='s'>
+                                        <td class="text-left">
+                                            <span
+                                                t-raw="'%s &lt;&gt;' %  s['subject'] if  s['subject']  else ''" />
+                                        </td>
+                                        <td class="text-center">
+                                            <span
+                                                t-raw="'%s &lt;&gt;' %   formatLang(s['date'], date=True)  if  formatLang(s['date'], date=True)  else ''" />
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="s['time']" />
+                                        </td>
+                                        <td class="text-left">
+                                            <span
+                                                t-raw="'%s &lt;&gt;' %   s['sup_sign']  if  s['sup_sign']  else ''" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t> -->
+    </t>
+</template>
+
+<template id="report_hall_ticket">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="openeducat_exam.report_hall_ticket_document"/>
+        </t>
+    </t>
+</template>
+
+</odoo>

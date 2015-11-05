@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_exam_timetable_document">
+    <t t-call="report.internal_layout">
+        <!-- <t t-foreach="o.student_ids" t-as="student"> -->
+            <div class="page">
+                <t t-set="index" t-value="1"/>
+                <div class="row text-center"><h3>Exam TimeTable</h3></div>
+                <table class="table">
+                    <tr>
+                        <td colspan="3"><span>Exam : </span><t t-esc="o.name"/></td>
+                        <td colspan="2" class="text-right">Course: <t t-esc="o.course_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td>#</td>
+                        <td>Subject</td>
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Marks</td>
+                    </tr>
+                    <t t-foreach="o.exam_line_ids" t-as="exam_line">
+                        <tr>
+                            <td><t t-esc="index"/></td>
+                            <td><t t-esc="exam_line.subject_id.name"/></td>
+                            <td><t t-esc="exam_line.start_time"/></td>
+                            <td><t t-esc="exam_line.end_time"/></td>
+                            <td><t t-esc="exam_line.total_mark"/></td>
+                            <t t-set="index" t-value="index+1"/>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        <!-- </t> -->
+    </t>
+</template>
+
+<template id="report_exam_timetable">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="openeducat_exam.report_exam_timetable_document"/>
+        </t>
+    </t>
+</template>
+
+</odoo>

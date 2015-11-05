@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_op_result_rule_template_tree" model="ir.ui.view">
+        <field name="name">op.result.rule.template.tree</field>
+        <field name="model">op.result.rule.template</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <tree string="Pass Status">
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_op_result_rule_template_form" model="ir.ui.view">
+        <field name="name">op.result.rule.template.form</field>
+        <field name="model">op.result.rule.template</field>
+        <field name="priority" eval="8"/>
+        <field name="arch" type="xml">
+            <form string="Pass Status">
+                <group colspan="4">
+                    <field name="name"/>
+                    <field name="active"/>
+                </group>
+                <group string="Pass Rules">
+                    <field name="pass_status_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="min_percentage"/>
+                            <field name="display_result"/>
+                            <field name="status"/>
+                        </tree>
+                    </field>
+                </group>
+                <group string="Fail Rules">
+                    <field name="fail_status_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="number"/>
+                            <field name="display_result"/>
+                            <field name="status"/>
+                        </tree>
+                    </field>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="act_open_op_result_rule_template">
+        <field name="name">Result Rule Template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">op.result.rule.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
