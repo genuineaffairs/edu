@@ -25,12 +25,13 @@ from openerp import models, fields
 class OpAttendanceLine(models.Model):
     _name = 'op.attendance.line'
     _rec_name = 'attendance_date'
+    _order = 'attendance_date'
 
     register_id = fields.Many2one('op.attendance.register', 'Attendance Register', required=True)
     att_sheet_id = fields.Many2one('op.attendance.sheet', 'Attendance Sheet', required=True)
     student_id = fields.Many2one('op.student', 'Student', required=True)
     present = fields.Boolean('Present ?')
-    attendance_date = fields.Date('Date', related='att_sheet_id.attendance_date',
+    attendance_date = fields.Date('Date', related='att_sheet_id.attendance_date', store=True,
         readonly=True)
     course_id = fields.Many2one(string='Course', related='att_sheet_id.course_id',
         store=True, readonly=True)

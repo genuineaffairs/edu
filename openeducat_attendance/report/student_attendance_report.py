@@ -58,11 +58,10 @@ class StudentAttendanceGenerate(report_sxw.rml_parse):
         for sheet in sheet_search:
             sheet_browse = sheet_pool.browse(self.cr, self.uid, sheet)
             for line in sheet_browse.attendance_line_ids:
-                dic = {}
-                if data['student_id'] == line.student_id.id and \
-                        not line.present:
+                if data['student_id'] == line.student_id.id:
                     dic = {
-                        'absent_date': sheet_browse.attendance_date,
+                        'date': sheet_browse.attendance_date,
+                        'present': 'P' if line.present else 'A',
                         'remark': line.remark
                     }
                     lst.append(dic)
@@ -76,5 +75,3 @@ class StudentAttendanceReport(models.AbstractModel):
     _template = 'openeducat_attendance.student_attendance_report'
     _wrapped_report_class = StudentAttendanceGenerate
 
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

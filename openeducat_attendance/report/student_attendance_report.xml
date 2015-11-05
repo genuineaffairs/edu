@@ -24,16 +24,20 @@
                         </div>
                         <table width="100%" class="table">
                             <thead>
-                                <th class="text-center">Date</th>
-                                <th class="text-center">Remark</th>
+                                <th class="text-left">Date</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-left">Remark</th>
                             </thead>
                             <tbody>
                                 <t t-foreach="get_data(data)" t-as="obj">
                                     <tr t-foreach="obj['line']" t-as="l">
-                                        <td class="text-center">
-                                            <t t-esc="l['absent_date']" />
+                                        <td class="text-left">
+                                            <t t-esc="l['date']" />
                                         </td>
                                         <td class="text-center">
+                                            <t t-esc="l['present']" />
+                                        </td>
+                                        <td class="text-left">
                                             <t t-esc="l['remark']" />
                                         </td>
                                     </tr>
@@ -46,6 +50,8 @@
                                         <b>
                                             <t t-esc="obj['total']" />
                                         </b>
+                                    </td>
+                                    <td>
                                     </td>
                                 </tr>
                             </tbody>
