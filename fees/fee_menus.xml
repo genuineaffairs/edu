@@ -1,8 +1,9 @@
 <odoo>
 
-    <menuitem id="menu_fee" name="Fee"/>
+    <menuitem id="menu_fee" name="Fee" sequence="22"
+        groups="openeducat_core.group_op_back_office,openeducat_core.group_op_back_office_admin"/>
 
-    <menuitem id="menu_fee_fees" name="Fees" parent="menu_fee" sequence="22"/>
+    <menuitem id="menu_fee_fees" name="Fees" parent="menu_fee"/>
 
     <menuitem id="menu_edu_fee_collect" action="edu_fee_collection_action" parent="menu_fee_fees"/>
     <menuitem id="menu_edu_fee_refund" action="edu_fee_refund_action" parent="menu_fee_fees"/>
