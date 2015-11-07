@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Template -->
+    <record id="view_fee_template_tree" model="ir.ui.view">
+        <field name="name">op.fee.template.tree</field>
+        <field name="model">edu.fee.template</field>
+        <field name="arch" type="xml">
+            <tree string="Fee Template">
+                <field name="name"/>
+                <field name="course_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fee_template_form" model="ir.ui.view">
+        <field name="name">op.fee.template.form</field>
+        <field name="model">edu.fee.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="confirm_fee_template" string="Conform"
+                        type="object" states="draft" class="oe_highlight"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <field name="course_id"
+                                attrs="{'readonly': [('state', '=', 'confirm')],
+                                'invisible': [('parent_id', '=', 'False')]
+                                }"/>
+                        </group>
+                        <group>
+                            <!-- <field name="is_refundable"/> -->
+                            <field name="parent_id" attrs="{'readonly': [('state', '=', 'confirm')]}"/>
+                            <!-- <field name="template_id" attrs="{'invisible': [('is_refundable', '=', False)]}"/> -->
+                            <field name="is_parent" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook attrs="{'invisible': [('is_parent', '=', True)]}">
+                        <!-- <page string="Fees Terms"> -->
+                        <page string="Fees">
+                            <field name="fee_line_ids">
+                            <!-- <field name="term_ids" string="Fee Terms"
+                                attrs="{'readonly': [('state', '=', 'confirm')]}"> -->
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="list_price" string="Amount"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total" class="oe_subtotal_footer_separator" widget="monetary"/>
+                            </group>
+                        </page>
+                        <!-- <page string="Total Fees">
+                            <field name="product_ids" string="Total Fees">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="list_price"/>
+                                </tree>
+                            </field>
+                        </page> -->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="edu_fee_template_action" model="ir.actions.act_window">
+        <field name="name">Fee Templates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">edu.fee.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a fee in your portal.
+              </p><p>
+                KaizenDT helps you easily track all your activities.
+              </p>
+        </field>
+    </record>
+    <record model="ir.actions.act_window.view" id="act_open_fee_template_view_tree">
+        <field name="act_window_id" ref="edu_fee_template_action"/>
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_fee_template_tree"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="act_open_fee_template_view_form">
+        <field name="act_window_id" ref="edu_fee_template_action"/>
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_fee_template_form"/>
+    </record>
+
+</odoo>

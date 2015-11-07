@@ -1,0 +1,6 @@
+id,name,is_fee,refundable,new_admission,list_price
+product_fee_01,Admission Fee,True,False,True,500
+product_fee_02,Exam Fee,True,False,False,700
+product_fee_03,Library Deposite,True,True,False,1000
+product_fee_04,Library Fee,True,False,False,2000
+product_fee_05,Tuition Fee,True,False,False,25000

@@ -1,0 +1,5 @@
+"id","name","course_id/id","fee_line_ids/id"
+"edu_fee_template_1","BOA-Sem-I","openeducat_core.op_course_3","fees.product_fee_01,fees.product_fee_02,fees.product_fee_03,fees.product_fee_04,fees.product_fee_05"
+"edu_fee_template_2","BOA-Sem-2","openeducat_core.op_course_4","fees.product_fee_01,fees.product_fee_02,fees.product_fee_03,fees.product_fee_04,fees.product_fee_05"
+"edu_fee_template_3","IELTS-2015-001","openeducat_core.op_course_5","fees.product_fee_01,fees.product_fee_02,fees.product_fee_03,fees.product_fee_04,fees.product_fee_05"
+"edu_fee_template_4","Grade-8-Course","openeducat_core.op_course_6","fees.product_fee_01,fees.product_fee_02,fees.product_fee_03,fees.product_fee_04,fees.product_fee_05"
