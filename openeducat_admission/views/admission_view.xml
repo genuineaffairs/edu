@@ -14,8 +14,48 @@
                     <field name="birth_date"/>
                     <field name="course_id"/>
                     <field name="batch_id"/>
-                    <field name="state"/>
+                    <field name="stage_id"/>
                 </tree>
+            </field>
+        </record>
+
+        <record id="view_op_admission_kanban" model="ir.ui.view">
+            <field name="name">op.admission.kanban</field>
+            <field name="model">op.admission</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="stage_id" edit="false" quick_create="false">
+                <!-- <kanban> -->
+                    <field name="stage_id"/>
+                    <field name="full_name"/>
+                    <field name="name"/>
+                    <field name="application_number"/>
+                    <field name="application_date"/>
+                    <!-- <field name="date_invoice"/> -->
+                    <field name="course_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <!-- <div class="row"> -->
+                                    <!-- <div class="col-xs-6">
+                                        <strong><span><t t-esc="record.partner_id.value"/></span></strong>
+                                    </div> -->
+                                    <!-- <div class="col-xs-6 pull-right text-right">
+                                        <strong><field name="amount_total_signed" widget="monetary"/></strong>
+                                    </div> -->
+                                <!-- </div> -->
+                                <div class="oe_kanban_content">
+                                    <div class="row col-md-12"><strong><field name="full_name"/></strong></div>
+                                    <div class="row col-md-12"><strong><field name="application_number"/></strong></div>
+                                    <div class="row col-md-12"><field name="course_id"/></div>
+                                    <!-- <div class="col-xs-6">
+                                        <span t-attf-class="pull-right text-right label #{['draft', 'cancel'].indexOf(record.state.raw_value) > -1 ? 'label-default' : ['none'].indexOf(record.state.raw_value) > -1 ? 'label-danger' : ['proforma', 'proforma2', 'open'].indexOf(record.state.raw_value) > -1 ? 'label-warning' : ['paid'].indexOf(record.state.raw_value) > -1 ? 'label-success' : 'label-primary'}"><t t-esc="record.state.value"/></span>
+                                    </div> -->
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
@@ -26,7 +66,7 @@
             <field name="arch" type="xml">
                 <form string="Admission">
                     <header groups="base.group_user">
-                        <button name="confirm_in_progress" states="draft" string="Confirm"
+                        <!-- <button name="confirm_in_progress" states="draft" string="Confirm"
                             type="object" class="oe_highlight"/>
                         <button name="create_invoice" states="confirm" string="Create Invoice"
                             type="object" class="oe_highlight"/>
@@ -44,7 +84,8 @@
                             type="object"/>
                         <button name="open_student" states="done" string="Open Student Profile"
                             type="object"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,payment_process,fees_paid,done"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,payment_process,fees_paid,done"/> -->
+                        <field name="stage_id" widget="statusbar" clickable="True" options="{'fold_field': 'fold'}"/>
                     </header>
                     <sheet>
                         <field name="photo" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium"}'/>
@@ -134,17 +175,14 @@
                     <field name="birth_date"/>
                     <field name="course_id"/>
                     <field name="batch_id"/>
-                    <newline/>
+                    <field name="stage_id"/>
                     <group expand="0" string="Group By...">
-                        <filter string="Last Name" domain="[]"
-                            context="{'group_by':'last_name'}"/>
-                        <filter string="Admission Date" domain="[]"
-                            context="{'group_by':'admission_date'}"/>
-                        <filter string="Application Date" domain="[]"
-                            context="{'group_by':'application_date'}"/>
-                        <filter string="Course" domain="[]" context="{'group_by':'course_id'}"/>
-                        <filter string="Batch" domain="[]" context="{'group_by':'batch_id'}"/>
-                        <filter string="Status" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Last Name" context="{'group_by':'last_name'}"/>
+                        <filter string="Admission Date" context="{'group_by':'admission_date'}"/>
+                        <filter string="Application Date" context="{'group_by':'application_date'}"/>
+                        <filter string="Course" context="{'group_by':'course_id'}"/>
+                        <filter string="Batch" context="{'group_by':'batch_id'}"/>
+                        <filter string="stage_id" context="{'group_by':'stage_id'}"/>
                     </group>
                 </search>
             </field>
@@ -166,7 +204,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">op.admission</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,graph</field>
+            <field name="view_mode">kanban,tree,form,graph</field>
             <field name="search_view_id" ref="view_op_admission_search"/>
             <field name="domain">[]</field>
             <field name="context">{}</field>
@@ -182,6 +220,13 @@
             <field name="sequence" eval="10"/>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="view_op_admission_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_admission_view_kanban">
+            <field name="act_window_id" ref="act_open_op_admission_view"/>
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_op_admission_kanban"/>
+            <!-- <field name="domain">[]</field> -->
         </record>
 
     </data>

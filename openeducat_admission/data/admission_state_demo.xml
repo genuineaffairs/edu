@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="op_admission_stage1" model="op.admission.state">
+            <field name="name">New</field>
+            <field name="code">new</field>
+            <field name="sequence" eval="1"/>
+        </record>
+        <record id="op_admission_stage2" model="op.admission.state">
+            <field name="name">Interview</field>
+            <field name="code">interview</field>
+            <field name="sequence" eval="2"/>
+        </record>
+        <record id="op_admission_stage3" model="op.admission.state">
+            <field name="name">Fee Paid</field>
+            <field name="code">fee_paid</field>
+            <field name="sequence" eval="3"/>
+        </record>
+        <record id="op_admission_stage4" model="op.admission.state">
+            <field name="name">Pending</field>
+            <field name="code">pending</field>
+            <field name="sequence" eval="4"/>
+            <field name="fold" eval="True"/>
+        </record>
+        <record id="op_admission_stage5" model="op.admission.state">
+            <field name="name">Confirmed</field>
+            <field name="code">confirmed</field>
+            <field name="sequence" eval="5"/>
+            <field name="fold" eval="True"/>
+        </record>
+        <record id="op_admission_stage6" model="op.admission.state">
+            <field name="name">Rejected</field>
+            <field name="code">rejected</field>
+            <field name="sequence" eval="6"/>
+            <field name="fold" eval="True"/>
+        </record>
+        <record id="op_admission_stage7" model="op.admission.state">
+            <field name="name">Cancelled</field>
+            <field name="code">cancelled</field>
+            <field name="sequence" eval="7"/>
+            <field name="fold" eval="True"/>
+        </record>
+    </data>
+</odoo>

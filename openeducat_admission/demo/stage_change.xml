@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="op_admission_1" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_2" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_3" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_4" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_5" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_6" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_7" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_8" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_9" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_10" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_11" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_12" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_13" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_14" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_15" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_16" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_17" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_18" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_19" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_20" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_21" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_22" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_23" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_24" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+        <record id="op_admission_25" model="op.admission">
+            <field name="stage_id" ref="op_admission_stage5"/>
+        </record>
+    </data>
+</openerp>

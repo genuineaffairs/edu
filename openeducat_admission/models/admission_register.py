@@ -78,5 +78,3 @@ class OpAdmissionRegister(models.Model):
         self.ensure_one()
         self.state = 'done'
 
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

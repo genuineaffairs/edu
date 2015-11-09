@@ -23,11 +23,21 @@ from openerp import models, fields, api, _
 from openerp.exceptions import ValidationError, UserError
 
 
+class OpAdmissionState(models.Model):
+    _name = 'op.admission.state'
+    _order = 'sequence'
+
+    name = fields.Char(required=True)
+    code = fields.Char(required=True)
+    sequence = fields.Integer(default=20)
+    fold = fields.Boolean()
+    admission_ids = fields.One2many('op.admission', 'stage_id')
+
+
 class OpAdmission(models.Model):
     _name = 'op.admission'
     _inherit = 'mail.thread'
     _rec_name = 'application_number'
-    _order = "application_number desc"
     _description = "Admission"
 
 
@@ -36,45 +46,49 @@ class OpAdmission(models.Model):
         for rec in self:
             rec.full_name = '%s %s %s' % (rec.name, rec.middle_name or '', rec.last_name)
 
+    @api.multi
+    def _default_stage_id(self):
+        stage_id = self.env['op.admission.state'].search([], order='sequence asc', limit=1).ids[0] or False
+        return stage_id or False
+
+
     full_name = fields.Char('Name', compute=_get_full_name)
     name = fields.Char('First Name', required=True,
-        states={'done': [('readonly', True)]})
+        )
     middle_name = fields.Char('Middle Name',
-        states={'done': [('readonly', True)]})
+        )
     last_name = fields.Char('Last Name', required=True,
-        states={'done': [('readonly', True)]})
-    title = fields.Many2one(
-        'res.partner.title', 'Title', states={'done': [('readonly', True)]})
-    application_number = fields.Char('Application Number', required=True, copy=False,
-        states={'done': [('readonly', True)]},
-        default=lambda self: self.env['ir.sequence'].next_by_code('op.admission'))
+        )
+    title = fields.Many2one('res.partner.title', 'Title', )
+    application_number = fields.Char('Admission Number', copy=False,
+        )
     admission_date = fields.Date('Admission Date', copy=False,
-        states={'done': [('readonly', True)]})
+        )
     application_date = fields.Datetime('Application Date', required=True, copy=False,
-        states={'done': [('readonly', True)]}, default=fields.Datetime.now())
-    birth_date = fields.Date('Birth Date', required=True, states={'done': [('readonly', True)]})
+        default=fields.Datetime.now())
+    birth_date = fields.Date('Birth Date', required=True, )
     course_id = fields.Many2one('op.course', 'Course', required=True,
-        states={'done': [('readonly', True)]})
+        )
     batch_id = fields.Many2one('op.batch', 'Batch', required=False,
-        states={'done': [('readonly', True)], 'fees_paid': [('required', True)]})
+        )
 
     # Address fields
-    street = fields.Char(states={'done': [('readonly', True)]})
-    street2 = fields.Char(states={'done': [('readonly', True)]})
-    phone = fields.Char(states={'done': [('readonly', True)]})
-    mobile = fields.Char(states={'done': [('readonly', True)]})
-    email = fields.Char(states={'done': [('readonly', True)]})
-    city = fields.Char(states={'done': [('readonly', True)]})
-    zip = fields.Char(states={'done': [('readonly', True)]})
+    street = fields.Char()
+    street2 = fields.Char()
+    phone = fields.Char()
+    mobile = fields.Char()
+    email = fields.Char()
+    city = fields.Char()
+    zip = fields.Char()
     state_id = fields.Many2one('res.country.state', 'States',
-        states={'done': [('readonly', True)]})
+        )
     country_id = fields.Many2one('res.country', 'Country',
-        states={'done': [('readonly', True)]})
+        )
 
-    photo = fields.Binary('Photo', states={'done': [('readonly', True)]})
+    photo = fields.Binary('Photo', )
     gender = fields.Selection([
         ('m', 'Male'), ('f', 'Female'), ('o', 'Other')], 'Gender',
-        required=True, states={'done': [('readonly', True)]})
+        required=True, )
     state = fields.Selection(
         [('draft', 'Draft'), ('confirm', 'Confirmed'),
          ('payment_process', 'Payment Process'), ('fees_paid', 'Fees Paid'),
@@ -82,22 +96,44 @@ class OpAdmission(models.Model):
          ('cancel', 'Cancelled'), ('done', 'Done')],
         'State', readonly=True, select=True,
         default='draft', track_visibility='onchange')
-    fees = fields.Float('Fees', states={'done': [('readonly', True)]})
-    due_date = fields.Date('Due Date', states={'done': [('readonly', True)]})
+    stage_id = fields.Many2one('op.admission.state', readonly=True,
+        default=_default_stage_id,
+        track_visibility='onchange')
+    fees = fields.Float('Fees', )
+    due_date = fields.Date('Due Date', )
     prev_institute_id = fields.Many2one(
         'res.partner', 'Previous Institute',
-        states={'done': [('readonly', True)]})
+        )
     prev_course_id = fields.Many2one(
-        'op.course', 'Previous Course', states={'done': [('readonly', True)]})
+        'op.course', 'Previous Course', )
     prev_result = fields.Char(
-        'Previous Result', size=256, states={'done': [('readonly', True)]})
+        'Previous Result', size=256, )
     family_business = fields.Char('Family Business')
     family_income = fields.Float('Family Income')
-    student_id = fields.Many2one('op.student', 'Student', states={'done': [('readonly', True)]})
+    student_id = fields.Many2one('op.student', 'Student', )
     nbr = fields.Integer('No of Admission', readonly=True)
     register_id = fields.Many2one('op.admission.register', 'Admission Register',
-        required=True, states={'done': [('readonly', True)]})
+        required=True, )
     partner_id = fields.Many2one('res.partner', 'Partner')
+
+
+    @api.model
+    def _read_group_stage_ids(self, ids, domain, read_group_order=None, access_rights_uid=None):
+        access_rights_uid = access_rights_uid or self.env.uid
+        Stage = self.env['op.admission.state']
+        order = Stage._order
+        stage_ids = Stage._search([], order=order, access_rights_uid=access_rights_uid)
+        stages = Stage.sudo(access_rights_uid).browse(stage_ids)
+        result = stages.name_get()
+
+        fold = {}
+        for stage in stages:
+            fold[stage.id] = stage.fold or False
+        return result, fold
+
+    _group_by_full = {
+        'stage_id': _read_group_stage_ids
+    }
 
 
     @api.onchange('register_id')
@@ -122,6 +158,14 @@ class OpAdmission(models.Model):
         if self.partner_id:
             self.state = 'payment_process'
 
+
+    @api.model
+    def create(self, vals):
+        admission = super(OpAdmission, self).create(vals)
+        suffix = str(admission.id).zfill(4)
+        admission.application_number = 'AD' + suffix
+        return admission
+
     # @api.multi
     def get_student_vals(self):
         return {
@@ -144,11 +188,16 @@ class OpAdmission(models.Model):
             'state_id': self.state_id.id,
         }
 
-    @api.multi
-    def enroll_student(self):
+    # @api.multi
+    @api.onchange('stage_id')
+    def onchange_enroll_student(self):
+        self.ensure_one()
+        if self.stage_id.code != 'confirmed' and not self.student_id:
+            return
         total_admission = self.env['op.admission'].search_count([
             ('register_id', '=', self.register_id.id),
-            ('state', '=', 'done')])
+            ])
+            # ('state', '=', 'done')])
         if self.register_id.max_count and total_admission >= self.register_id.max_count:
             msg = 'Admission of %s course is now full !' % (self.register_id.course_id)
             raise ValidationError(msg)

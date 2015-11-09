@@ -33,9 +33,10 @@
     'website': 'http://www.openeducat.org',
     'depends': ['openeducat_fees'],
     'data': [
+        'data/admission_state_demo.xml',
         'views/admission_register_view.xml',
         'views/admission_view.xml',
-        'views/admission_sequence.xml',
+        # 'views/admission_sequence.xml',
         'report/report_menu.xml',
         'report/report_admission_analysis.xml',
         'wizard/admission_analysis_wizard_view.xml',
@@ -48,6 +49,7 @@
         'demo/op.admission.register.csv',
         'demo/op.admission.csv',
         'demo/student_demo.xml',
+        'demo/stage_change.xml',
     ],
     'images': [
         'static/description/openeducat_admission_banner.jpg',
