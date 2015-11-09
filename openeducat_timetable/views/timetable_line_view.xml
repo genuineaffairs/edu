@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_time_table_line_tree" model="ir.ui.view">
+            <field name="name">op.timetable.line.tree</field>
+            <field name="model">op.timetable.line</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <tree string="TimeTable Line" editable="bottom">
+                    <field name="day" invisible="1"/>
+                    <field name="period_id" />
+                    <field name="faculty_id" />
+                    <field name="subject_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_time_table_line_form" model="ir.ui.view">
+            <field name="name">op.timetable.line.form</field>
+            <field name="model">op.timetable.line</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <form string="Table Line">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="day" />
+                            <field name="period_id" />
+                            <field name="faculty_id" />
+                            <field name="subject_id" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_timetable_line_kanban">
+            <field name="name">op.timetable.line.kanban</field>
+            <field name="model">op.timetable.line</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="day" class="o_kanban_small_column">
+                    <field name="day"/>
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" >
+                                        <span class="fa fa-bars fa-lg"/>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <t t-if="widget.editable"><li><a type="edit">Edit</a></li></t>
+                                        <t t-if="widget.deletable"><li><a type="delete">Delete</a></li></t>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <strong><field name="period_id"/></strong>
+                                    <!-- <strong><field name="course_code"/></strong> -->
+                                </div>
+                                <div class="oe_kanban_left">
+                                    <!-- <li t-if="record.batch_id.raw_value">
+                                        Batch:
+                                        <field name="batch_id"/>
+                                    </li> -->
+                                    <li t-if="record.subject_id.raw_value">
+                                        Subject:
+                                        <field name="subject_id"/>
+                                    </li>
+                                    <li t-if="record.faculty_id.raw_value">
+                                        Faculty:
+                                        <field name="faculty_id"/>
+                                    </li>
+                                    <!-- <li t-if="record.course_id.raw_value">
+                                        Course:
+                                        <field name="course_id"/>
+                                    </li> -->
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <img t-att-src="kanban_image('op.faculty', 'photo', record.faculty_id.raw_value)" t-att-title="record.faculty_id.value" width="24" height="24" class="oe_kanban_avatar"/>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </div>
+                    </t>
+                    </templates>
+                </kanban>
+            </field>
+         </record>
+
+
+         <record model="ir.actions.act_window" id="action_op_timetable_line">
+            <field name="name">Periods</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.timetable.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <!-- <field name="search_view_id" ref="view_op_timetable_search"/> -->
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_timetable_view_form">
+            <field name="act_window_id" ref="action_op_timetable_line"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_time_table_line_form"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_timetable_view_tree">
+            <field name="act_window_id" ref="action_op_timetable_line"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_time_table_line_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="act_open_op_timetable_view_kanban">
+            <field name="act_window_id" ref="action_op_timetable_line"/>
+            <field name="sequence" eval="5"/>
+            <field name="view_mode">kanban</field>
+            <field name="view_id" ref="view_timetable_line_kanban"/>
+        </record>
+
+    </data>
+</openerp>

@@ -27,18 +27,18 @@ class OpPeriod(models.Model):
     _description = 'Period'
     _order = 'sequence'
 
-    name = fields.Char('Name', size=16, required=True)
-    hour = fields.Selection(
-        [('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5'),
-         ('6', '6'), ('7', '7'), ('8', '8'), ('9', '9'), ('10', '10'),
-         ('11', '11'), ('12', '12')], 'Hours', required=True)
-    minute = fields.Selection(
-        [('00', '00'), ('15', '15'), ('30', '30'), ('45', '45')], 'Minute',
-        required=True)
-    duration = fields.Float('Duration')
-    am_pm = fields.Selection(
-        [('am', 'AM'), ('pm', 'PM')], 'AM/PM', required=True)
+    name = fields.Char('Name', required=True)
+    hour = fields.Selection([
+        ('01', '01'), ('02', '02'), ('03', '03'), ('04', '04'), ('05', '05'),
+        ('06', '06'), ('07', '07'), ('08', '08'), ('09', '09'), ('10', '10'),
+        ('11', '11'), ('12', '12')], 'Hours', required=True)
+    minute = fields.Selection([
+        ('00', '00'), ('05', '05'), ('10', '10'), ('15', '15'),
+        ('20', '20'), ('25', '25'), ('30', '30'), ('35', '35'),
+        ('40', '40'), ('45', '45'), ('50', '50'), ('55', '55'),
+        ], 'Minute',required=True)
+    duration = fields.Float('Duration', required=True)
+    am_pm = fields.Selection([
+        ('am', 'AM'), ('pm', 'PM')], 'AM/PM', required=True)
     sequence = fields.Integer('Sequence')
 
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

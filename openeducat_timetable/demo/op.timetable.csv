@@ -1,0 +1,2 @@
+id,course_id:id,batch_id:id,faculty_id:id
+op_timetable_1,openeducat_core.op_course_2,openeducat_core.op_batch_1,openeducat_core.op_faculty_1

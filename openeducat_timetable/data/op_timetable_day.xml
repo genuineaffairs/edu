@@ -19,11 +19,15 @@
         </record>
         <record id="op_timetable_day_5" model="op.timetable.day">
             <field name="name">Friday</field>
-            <field name="sequence" eval="4"/>
+            <field name="sequence" eval="5"/>
         </record>
         <record id="op_timetable_day_6" model="op.timetable.day">
             <field name="name">Saturday</field>
-            <field name="sequence" eval="4"/>
+            <field name="sequence" eval="6"/>
+        </record>
+        <record id="op_timetable_day_7" model="op.timetable.day">
+            <field name="name">Sunday</field>
+            <field name="sequence" eval="7"/>
         </record>
     </data>
 </odoo>

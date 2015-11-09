@@ -61,68 +61,71 @@ class GenerateTimeTable(models.TransientModel):
     time_table_lines_6 = fields.One2many(
         'gen.time.table.line', 'gen_time_table', 'Time Table Lines',
         domain=[('day', '=', '6')])
-    start_date = fields.Date('Start Date', required=True)
-    end_date = fields.Date('End Date', required=True)
+    time_table_lines_7 = fields.One2many(
+        'gen.time.table.line', 'gen_time_table', 'Time Table Lines',
+        domain=[('day', '=', '7')])
+    # start_date = fields.Date('Start Date', required=True)
+    # end_date = fields.Date('End Date', required=True)
 
-    @api.one
-    def gen_datewise(self, line, st_date, en_date, self_obj):
-        day_cnt = 7
-        curr_date = st_date
-        en_date = en_date.replace(hour=23, minute=59, second=59)
-        while curr_date <= en_date:
-            hour = line.period_id.hour
-            if line.period_id.am_pm == 'pm' and int(hour) != 12:
-                hour = int(hour) + 12
-            per_time = '%s:%s:00' % (hour, line.period_id.minute)
-            local = pytz.timezone(self.env.user.partner_id.tz or 'GMT')
-            naive = datetime.datetime.strptime(
-                curr_date.strftime('%Y-%m-%d ') +
-                per_time, '%Y-%m-%d %H:%M:%S')
-            local_dt = local.localize(naive, is_dst=None)
-            utc_dt = local_dt.astimezone(pytz.utc)
-            utc_dt = utc_dt.strftime("%Y-%m-%d %H:%M:%S")
-            curr_date = datetime.datetime.strptime(utc_dt, "%Y-%m-%d %H:%M:%S")
-            end_time = datetime.timedelta(hours=line.period_id.duration)
-            cu_en_date = curr_date + end_time
-            s = fields.Datetime.from_string(self_obj.start_date)
-            timetable_day = self.env['op.timetable.day'].search(
-                [('name', '=', curr_date.strftime('%A'))], limit=1)
-            if curr_date >= s and curr_date <= en_date:
-                self.env['op.timetable'].create({
-                    'faculty_id': line.faculty_id.id,
-                    'subject_id': line.subject_id.id,
-                    'course_id': self_obj.course_id.id,
-                    'batch_id': self_obj.batch_id.id,
-                    'period_id': line.period_id.id,
-                    'start_datetime': curr_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    'end_datetime': cu_en_date.strftime("%Y-%m-%d %H:%M:%S"),
-                    # 'type': curr_date.strftime('%A'),
-                    'type': timetable_day.id,
-                })
-            curr_date = curr_date + datetime.timedelta(days=day_cnt)
-        return True
+    # @api.one
+    # def gen_datewise(self, line, st_date, en_date, self_obj):
+    #     day_cnt = 7
+    #     curr_date = st_date
+    #     en_date = en_date.replace(hour=23, minute=59, second=59)
+    #     while curr_date <= en_date:
+    #         hour = line.period_id.hour
+    #         if line.period_id.am_pm == 'pm' and int(hour) != 12:
+    #             hour = int(hour) + 12
+    #         per_time = '%s:%s:00' % (hour, line.period_id.minute)
+    #         local = pytz.timezone(self.env.user.partner_id.tz or 'GMT')
+    #         naive = datetime.datetime.strptime(
+    #             curr_date.strftime('%Y-%m-%d ') +
+    #             per_time, '%Y-%m-%d %H:%M:%S')
+    #         local_dt = local.localize(naive, is_dst=None)
+    #         utc_dt = local_dt.astimezone(pytz.utc)
+    #         utc_dt = utc_dt.strftime("%Y-%m-%d %H:%M:%S")
+    #         curr_date = datetime.datetime.strptime(utc_dt, "%Y-%m-%d %H:%M:%S")
+    #         end_time = datetime.timedelta(hours=line.period_id.duration)
+    #         cu_en_date = curr_date + end_time
+    #         s = fields.Datetime.from_string(self_obj.start_date)
+    #         timetable_day = self.env['op.timetable.day'].search(
+    #             [('name', '=', curr_date.strftime('%A'))], limit=1)
+    #         if curr_date >= s and curr_date <= en_date:
+    #             self.env['op.timetable'].create({
+    #                 'faculty_id': line.faculty_id.id,
+    #                 'subject_id': line.subject_id.id,
+    #                 'course_id': self_obj.course_id.id,
+    #                 'batch_id': self_obj.batch_id.id,
+    #                 'period_id': line.period_id.id,
+    #                 # 'start_datetime': curr_date.strftime("%Y-%m-%d %H:%M:%S"),
+    #                 # 'end_datetime': cu_en_date.strftime("%Y-%m-%d %H:%M:%S"),
+    #                 # 'type': curr_date.strftime('%A'),
+    #                 'type': timetable_day.id,
+    #             })
+    #         curr_date = curr_date + datetime.timedelta(days=day_cnt)
+    #     return True
 
-    @api.one
-    def act_gen_time_table(self):
-        st_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d')
-        en_date = datetime.datetime.strptime(self.end_date, '%Y-%m-%d')
-        st_day = week_number[st_date.strftime('%a')]
-        for line in self.time_table_lines:
-            if int(line.day) == st_day:
-                self.gen_datewise(
-                    line, st_date, en_date, self)
-            if int(line.day) < st_day:
-                new_st_date = st_date - \
-                    datetime.timedelta(days=(st_day - int(line.day)))
-                self.gen_datewise(
-                    line, new_st_date, en_date, self)
-            if int(line.day) > st_day:
-                new_st_date = st_date + \
-                    datetime.timedelta(days=(int(line.day) - st_day))
-                self.gen_datewise(
-                    line, new_st_date, en_date, self)
+    # @api.one
+    # def act_gen_time_table(self):
+    #     # st_date = datetime.datetime.strptime(self.start_date, '%Y-%m-%d')
+    #     # en_date = datetime.datetime.strptime(self.end_date, '%Y-%m-%d')
+    #     # st_day = week_number[st_date.strftime('%a')]
+    #     for line in self.time_table_lines:
+    #         if int(line.day) == st_day:
+    #             self.gen_datewise(
+    #                 line, st_date, en_date, self)
+    #         if int(line.day) < st_day:
+    #             new_st_date = st_date - \
+    #                 datetime.timedelta(days=(st_day - int(line.day)))
+    #             self.gen_datewise(
+    #                 line, new_st_date, en_date, self)
+    #         if int(line.day) > st_day:
+    #             new_st_date = st_date + \
+    #                 datetime.timedelta(days=(int(line.day) - st_day))
+    #             self.gen_datewise(
+    #                 line, new_st_date, en_date, self)
 
-        return {'type': 'ir.actions.act_window_close'}
+    #     return {'type': 'ir.actions.act_window_close'}
 
 
 class GenerateTimeTableLine(models.TransientModel):
@@ -141,6 +144,7 @@ class GenerateTimeTableLine(models.TransientModel):
         ('4', 'Thursday'),
         ('5', 'Friday'),
         ('6', 'Saturday'),
+        ('7', 'Sunday'),
     ], 'Day', required=True)
     period_id = fields.Many2one('op.period', 'Period',  required=True)
 

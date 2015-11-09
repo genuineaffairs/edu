@@ -33,22 +33,67 @@ class OpTimetableDay(models.Model):
 class OpTimetable(models.Model):
     _name = 'op.timetable'
     _description = 'Time Table'
-    _rec_name = 'faculty_id'
-    _order = 'type, period_id'
+    _rec_name = 'course_code'
+    # _order = 'type, period_id'
 
-    period_id = fields.Many2one('op.period', 'Period', required=True)
-    start_datetime = fields.Datetime('Start Time', required=True)
-    end_datetime = fields.Datetime('End Time', required=True)
-    course_id = fields.Many2one('op.course', 'Course', required=True)
-    faculty_id = fields.Many2one('op.faculty', 'Faculty', required=True)
-    batch_id = fields.Many2one('op.batch', 'Batch', required=True)
-    subject_id = fields.Many2one('op.subject', 'Subject', required=True)
+    # period_id = fields.Many2one('op.period', 'Period', required=True)
+    course_id = fields.Many2one('op.course', 'Course', required=True, select=True)
+    course_code = fields.Char('Course', related='course_id.code', store="True")
+    batch_id = fields.Many2one('op.batch', 'Batch', required=True, select=True)
+    faculty_id = fields.Many2one('op.faculty', 'Class Teacher', select=True)
+    # subject_id = fields.Many2one('op.subject', 'Subject', required=True)
     color = fields.Integer('Color Index')
     # type = fields.Selection(
     #     [('Monday', 'Monday'), ('Tuesday', 'Tuesday'),
     #      ('Wednesday', 'Wednesday'), ('Thursday', 'Thursday'),
     #      ('Friday', 'Friday'), ('Saturday', 'Saturday')], 'Days')
-    type = fields.Many2one('op.timetable.day', 'Days')
+    # type = fields.Many2one('op.timetable.day', 'Days')
+
+    time_table_lines = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines')
+    time_table_lines_1 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '1')])
+    time_table_lines_2 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '2')])
+    time_table_lines_3 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '3')])
+    time_table_lines_4 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '4')])
+    time_table_lines_5 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '5')])
+    time_table_lines_6 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '6')])
+    time_table_lines_7 = fields.One2many(
+        'op.timetable.line', 'timetable_id', 'Time Table Lines',
+        domain=[('day', '=', '7')])
 
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+
+class OpTimetableLine(models.Model):
+    _name = 'op.timetable.line'
+    _description = 'Time Table Lines'
+    _rec_name = 'period_id'
+    _order = 'period_id'
+
+    timetable_id = fields.Many2one(
+        'generate.time.table', 'Time Table', required=True, select=True)
+    faculty_id = fields.Many2one('op.faculty', 'Faculty', required=True, select=True)
+    subject_id = fields.Many2one('op.subject', 'Subject', required=True, select=True)
+    color = fields.Integer('Color Index')
+    day = fields.Selection([
+        ('1', 'Monday'),
+        ('2', 'Tuesday'),
+        ('3', 'Wednesday'),
+        ('4', 'Thursday'),
+        ('5', 'Friday'),
+        ('6', 'Saturday'),
+        ('7', 'Sunday'),
+    ], 'Day', required=True, select=True)
+    period_id = fields.Many2one('op.period', 'Period',  required=True, select=True)
+

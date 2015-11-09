@@ -35,22 +35,25 @@
     'depends': ['openeducat_core'],
     'data': [
         'views/timetable_view.xml',
+        'views/timetable_line_view.xml',
         'views/period_view.xml',
         'views/faculty_view.xml',
         'report/report_timetable_student_generate.xml',
         'report/report_timetable_teacher_generate.xml',
         'report/report_menu.xml',
-        'wizard/generate_timetable_view.xml',
-        'wizard/time_table_report.xml',
-        'dashboard/timetable_student_dashboard.xml',
-        'dashboard/timetable_faculty_dashboard.xml',
+        # 'wizard/generate_timetable_view.xml',
+        # 'wizard/time_table_report.xml',
+        # 'dashboard/timetable_student_dashboard.xml',
+        # 'dashboard/timetable_faculty_dashboard.xml',
         'security/ir.model.access.csv',
         'timetable_menu.xml',
         'data/op_timetable_day.xml',
     ],
     'demo': [
         'demo/op.period.csv',
-        'demo/op_timetable_demo.xml'
+        'demo/op.timetable.csv',
+        'demo/op.timetable.line.csv',
+        # 'demo/op_timetable_demo.xml'
     ],
     'images': [
         'static/description/openeducat_timetable_banner.jpg',
@@ -59,6 +62,3 @@
     'auto_install': False,
     'application': True,
 }
-
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
