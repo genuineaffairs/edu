@@ -7,8 +7,8 @@
 
     <menuitem id="menu_edu_fee_collect" action="edu_fee_collection_action" parent="menu_fee_fees"/>
     <menuitem id="menu_edu_fee_refund" action="edu_fee_refund_action" parent="menu_fee_fees"/>
-    <!-- <menuitem id="menu_edu_fee_collect_master" action="edu_fee_collect_master_action" parent="menu_fee_fees"/> -->
-    <!-- <menuitem id="menu_edu_fee_refund_master" action="edu_fee_refund_master_action" parent="menu_fee_fees"/> -->
+    <menuitem id="menu_edu_fee_collect_master" action="edu_fee_collect_master_action" parent="menu_fee_fees"/>
+    <menuitem id="menu_edu_fee_refund_master" action="edu_fee_refund_master_action" parent="menu_fee_fees"/>
 
     <menuitem id="menu_fee_collection" name="Fee Settings" parent="menu_fee"/>
     <menuitem id="menu_fee_template" action="edu_fee_template_action" parent="menu_fee_collection" sequence="1"/>

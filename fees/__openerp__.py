@@ -39,6 +39,7 @@
         'views/fee_category_views.xml',
         'views/fee_collect_views.xml',
         'views/fee_refund_views.xml',
+        'views/fee_master_views.xml',
         'fee_menus.xml',
     ],
     'demo': [

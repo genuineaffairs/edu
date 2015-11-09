@@ -59,8 +59,9 @@ class FeeRefund(models.Model):
         invoice = AccountInvoice.create({
             'partner_id': fee_refund.student_id.partner_id.id,
             'account_id': fee_refund.student_id.partner_id.property_account_payable_id.id,
-            'type': 'in_refund',
-            # 'journal_type': 'sale',
+            'type': 'out_invoice',
+            'journal_type': 'purchase',
+            'is_fee_invoice': True,
             # 'currency_id': self.user.company_id.currency_id.id,
             })
         fee_refund.invoice_id = invoice.id

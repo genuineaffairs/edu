@@ -3,6 +3,12 @@
 from openerp import api, fields, models
 
 
+class FeeCollectMaster(models.Model):
+
+    _inherit = ['account.invoice']
+
+    is_fee_invoice = fields.Boolean()
+
 
 class FeeCollect(models.Model):
     _name = 'edu.fee.collect'
@@ -55,7 +61,8 @@ class FeeCollect(models.Model):
             'partner_id': fee_collect.student_id.partner_id.id,
             'account_id': fee_collect.student_id.partner_id.property_account_receivable_id.id,
             'type': 'out_invoice',
-            'origin': fee_collect.id
+            'origin': fee_collect.id,
+            'is_fee_invoice': True,
             # 'currency_id': self.user.company_id.currency_id.id,
             })
         fee_collect.invoice_id = invoice.id
