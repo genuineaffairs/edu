@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="edu_fee_collect_master_action" model="ir.actions.act_window">
+        <field name="name">Collect Fee Master</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field name="context">{'type':'out_invoice'}</field>
+        <field name="domain">[('is_fee_invoice', '=', True)]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to create a new document in your portal.
+            </p><p>
+            KaizenDT helps you easily track all your activities.
+            </p>
+        </field>
+    </record>
+    <record id="edu_fee_refund_master_action" model="ir.actions.act_window">
+        <field name="name">Refund Fee Master</field>
+        <field name="res_model">account.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph</field>
+        <field eval="False" name="view_id"/>
+        <field name="domain">[('is_fee_invoice', '=', True)]</field>
+        <field name="context">{'type':'in_invoice', 'journal_type': 'purchase'}</field>
+        <!-- <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}</field> -->
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+            Click to create a new document in your portal.
+            </p><p>
+            KaizenDT helps you easily track all your activities.
+            </p>
+        </field>
+    </record>
+</odoo>
