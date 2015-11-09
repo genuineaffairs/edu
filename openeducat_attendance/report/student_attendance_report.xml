@@ -42,19 +42,22 @@
                                         </td>
                                     </tr>
                                 </t>
-                                <tr t-foreach="get_data(data)" t-as="obj">
-                                    <td class="text-center">
-                                        <b>Total Absence</b>
+                            </tbody>
+                            <tfoot>
+                                <t t-foreach="get_data(data)" t-as="obj">
+                                <tr>
+                                    <td><div class="oe_mt32">
+                                        <strong><span>Total Days: </span><t t-esc="obj['total']" /></strong></div>
                                     </td>
-                                    <td class="text-center">
-                                        <b>
-                                            <t t-esc="obj['total']" />
-                                        </b>
+                                    <td><div class="oe_mt32">
+                                        <strong><span>Total Present: </span><t t-esc="obj['total_present']"/></strong></div>
                                     </td>
-                                    <td>
+                                    <td><div class="oe_mt32">
+                                        <strong><span>Total Absent: </span><t t-esc="obj['total_absent']"/></strong></div>
                                     </td>
                                 </tr>
-                            </tbody>
+                                </t>
+                            </tfoot>
                         </table>
                     </div>
                 </t>

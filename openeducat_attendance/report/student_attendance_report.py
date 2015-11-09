@@ -55,6 +55,7 @@ class StudentAttendanceGenerate(report_sxw.rml_parse):
             order='attendance_date asc')
 
         lst = []
+        absent_count = 0
         for sheet in sheet_search:
             sheet_browse = sheet_pool.browse(self.cr, self.uid, sheet)
             for line in sheet_browse.attendance_line_ids:
@@ -64,9 +65,16 @@ class StudentAttendanceGenerate(report_sxw.rml_parse):
                         'present': 'P' if line.present else 'A',
                         'remark': line.remark
                     }
+                    if not line.present:
+                        absent_count += 1
                     lst.append(dic)
-        return [{'total': len(lst),
-                 'line': lst}]
+        total = len(lst)
+        return [{
+            'total': total,
+            'total_present': total - absent_count,
+            'total_absent': absent_count,
+            'line': lst,
+         }]
 
 
 class StudentAttendanceReport(models.AbstractModel):
