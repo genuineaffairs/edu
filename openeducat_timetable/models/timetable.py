@@ -81,8 +81,10 @@ class OpTimetableLine(models.Model):
     _rec_name = 'period_id'
     _order = 'period_id'
 
-    timetable_id = fields.Many2one(
-        'generate.time.table', 'Time Table', required=True, select=True)
+    timetable_id = fields.Many2one('op.timetable', 'Time Table',
+        required=True, select=True)
+    course_id = fields.Many2one(related='timetable_id.course_id', string='Course', store=True)
+    batch_id = fields.Many2one(related='timetable_id.batch_id', string='Batch', store=True)
     faculty_id = fields.Many2one('op.faculty', 'Faculty', required=True, select=True)
     subject_id = fields.Many2one('op.subject', 'Subject', required=True, select=True)
     color = fields.Integer('Color Index')

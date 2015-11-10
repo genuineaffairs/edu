@@ -86,5 +86,8 @@ class OpStudent(models.Model):
     mother_id = fields.Many2one('res.partner', 'Mother')
     m_mobile = fields.Char(related='father_id.mobile', string='Father Mobile')
 
+    @api.onchange('user_id')
+    def onchange_user_id(self):
+        self.user_id.student_id = self.id or False
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,27 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
+
+        <record id="view_op_timetable_form_dashboard" model="ir.ui.view">
+            <field name="name">op.timetable.form.dashboard</field>
+            <field name="model">op.timetable</field>
+            <field name="priority" eval="9"/>
+            <field name="arch" type="xml">
+                <form string="Time Table">
+                    <sheet>
+                        <!-- <group colspan="4" col="4">
+                            <field name="course_id"/>
+                            <field name="faculty_id"/>
+                            <field name="batch_id"/>
+                        </group> -->
+                        <notebook>
+                             <page string="Monday">
+                                <group>
+                                    <field name="time_table_lines_1" nolabel="1" context="{'default_day': '1'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Tuesday">
+                                <group>
+                                    <field name="time_table_lines_2" nolabel="1" context="{'default_day': '2'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Wednesday">
+                                <group>
+                                    <field name="time_table_lines_3" nolabel="1" context="{'default_day': '3'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Thursday">
+                                <group>
+                                    <field name="time_table_lines_4" nolabel="1" context="{'default_day': '4'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Friday">
+                                <group>
+                                    <field name="time_table_lines_5" nolabel="1" context="{'default_day': '5'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Saturday">
+                                <group>
+                                    <field name="time_table_lines_6" nolabel="1" context="{'default_day': '6'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Sunday">
+                                <group>
+                                    <field name="time_table_lines_7" nolabel="1" context="{'default_day': '7'}" readonly="1" >
+                                        <tree string="TimeTable Line" editable="bottom">
+                                            <field name="day" invisible="1"/>
+                                            <field name="period_id" />
+                                            <field name="faculty_id" />
+                                            <field name="subject_id" />
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
         <record model="ir.actions.act_window" id="act_op_student_period_today">
             <field name="name">Period</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">op.timetable</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">calendar,form</field>
-            <field name="view_id" ref="view_op_timetable_calendar" />
-            <field name="search_view_id" ref="view_op_timetable_search" />
-            <field name="domain">[('start_datetime','&gt;=',time.strftime('%Y-%m-%d
-                00:00:00')),('start_datetime','&lt;=',time.strftime('%Y-%m-%d
-                23:59:59'))]</field>
-            <field name="context">{'search_default_today':1}</field>
+            <field name="res_model">op.timetable.line</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_time_table_line_tree"/>
+            <field name="search_view_id" ref="view_op_timetable_line_search"/>
+            <field name="domain">[('day', '=', datetime.date.today().weekday())]</field>
         </record>
-        <record model="ir.ui.view" id="timetable_student_dashboard_form_view">
-            <field name="name">board.faculty.form</field>
+        <record model="ir.ui.view" id="timetable_line_student_dashboard_tree_view">
+            <field name="name">board.student.tree</field>
             <field name="model">board.board</field>
-            <field name="inherit_id" ref="openeducat_core.board_student_form" />
+            <field name="inherit_id" ref="openeducat_core.board_student_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//board" position="inside">
                     <column>
-                        <action name="%(act_op_student_period_today)d" string="Period for Today" />
+                        <action name="%(act_op_student_period_today)d" string="Today's Periods"/>
                     </column>
                 </xpath>
             </field>
