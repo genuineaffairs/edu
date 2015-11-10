@@ -3,5 +3,6 @@
 
 "access_op_timetable_faculty","name_op_timetable_faculty","model_op_timetable","openeducat_core.group_op_faculty",1,0,0,0
 "access_op_timetable_student","name_op_timetable_student","model_op_timetable","openeducat_core.group_op_student",1,0,0,0
+"access_op_timetable_line_student","name_op_timetable_line_student","model_op_timetable_line","openeducat_core.group_op_student",1,0,0,0
 "access_op_timetable_back_office","name_op_timetable_back_office","model_op_timetable","openeducat_core.group_op_back_office",1,1,1,1
 "access_op_timetable_back_office_admin","name_op_timetable_back_office_admin","model_op_timetable","openeducat_core.group_op_back_office_admin",1,1,1,1
